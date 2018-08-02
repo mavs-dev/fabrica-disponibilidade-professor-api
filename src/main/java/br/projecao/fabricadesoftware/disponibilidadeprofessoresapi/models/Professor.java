@@ -9,6 +9,7 @@ public class Professor {
 	@Id
 	private String _id;
 	
+	// DADOS PESSOAIS
 	private String nome;
 	private String sobrenome;
 	private String apelido;
@@ -17,7 +18,6 @@ public class Professor {
 	private String cep;
 	private String telefone;
 	private String celular;
-	
 	private String email;
 
 	public String getId() {
