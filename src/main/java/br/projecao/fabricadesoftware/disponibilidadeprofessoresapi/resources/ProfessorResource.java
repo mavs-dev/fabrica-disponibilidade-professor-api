@@ -107,5 +107,19 @@ public class ProfessorResource implements Resource<Professor>{
 		novoProfessor.setTelefone((novoProfessor.getTelefone() !=null && !novoProfessor.getTelefone().isEmpty())? novoProfessor.getTelefone(): professorAtual.getTelefone());
 		novoProfessor.setCelular((novoProfessor.getCelular() !=null && !novoProfessor.getCelular().isEmpty())? novoProfessor.getCelular(): professorAtual.getCelular());
 		novoProfessor.setEmail((novoProfessor.getEmail() !=null && !novoProfessor.getEmail().isEmpty())? novoProfessor.getEmail(): professorAtual.getEmail());
-	}
+		
+		//dados profissionais
+		novoProfessor.setDataConclusao((novoProfessor.getDataConclusao() !=null && !novoProfessor.getDataConclusao().toString().isEmpty())? novoProfessor.getDataConclusao(): professorAtual.getDataConclusao());
+		novoProfessor.setMaiorTitulacaoObtida((novoProfessor.getMaiorTitulacaoObtida() !=null && !novoProfessor.getMaiorTitulacaoObtida().isEmpty())? novoProfessor.getMaiorTitulacaoObtida(): professorAtual.getMaiorTitulacaoObtida());
+		novoProfessor.setTitulacaoEmAndamento((novoProfessor.getTitulacaoEmAndamento() !=null)? novoProfessor.getTitulacaoEmAndamento(): professorAtual.getTitulacaoEmAndamento());
+		novoProfessor.setNomeTitulacaoEmAndamento((novoProfessor.getNomeTitulacaoEmAndamento() !=null && !novoProfessor.getNomeTitulacaoEmAndamento().isEmpty())? novoProfessor.getNomeTitulacaoEmAndamento(): professorAtual.getNomeTitulacaoEmAndamento());
+		novoProfessor.setEstimativaTerminoTitulacaoEmAndamento((novoProfessor.getEstimativaTerminoTitulacaoEmAndamento() !=null && !novoProfessor.getEstimativaTerminoTitulacaoEmAndamento().toString().isEmpty())? novoProfessor.getEstimativaTerminoTitulacaoEmAndamento(): professorAtual.getEstimativaTerminoTitulacaoEmAndamento());
+		novoProfessor.setPrincipalAtuacaoProfissional((novoProfessor.getPrincipalAtuacaoProfissional() !=null && !novoProfessor.getPrincipalAtuacaoProfissional().isEmpty())? novoProfessor.getPrincipalAtuacaoProfissional(): professorAtual.getPrincipalAtuacaoProfissional());
+		novoProfessor.setTempoExpProfissional((novoProfessor.getTempoExpProfissional() !=null)? novoProfessor.getTempoExpProfissional(): professorAtual.getTempoExpProfissional());
+		novoProfessor.setTempoExpEmMagisterioSuperior((novoProfessor.getTempoExpEmMagisterioSuperior() !=null)? novoProfessor.getTempoExpEmMagisterioSuperior(): professorAtual.getTempoExpEmMagisterioSuperior());
+		novoProfessor.setTempoExpDocenciaNaEdBasica((novoProfessor.getTempoExpDocenciaNaEdBasica() !=null)? novoProfessor.getTempoExpDocenciaNaEdBasica(): professorAtual.getTempoExpDocenciaNaEdBasica());
+		novoProfessor.setUltimaAttLattes((novoProfessor.getUltimaAttLattes() !=null && !novoProfessor.getUltimaAttLattes().toString().isEmpty())? novoProfessor.getUltimaAttLattes(): professorAtual.getUltimaAttLattes());
+		novoProfessor.setUrlLattes((novoProfessor.getUrlLattes() !=null && !novoProfessor.getUrlLattes().isEmpty())? novoProfessor.getUrlLattes(): professorAtual.getUrlLattes());
+		novoProfessor.setUltimasPublicacoesLattes((novoProfessor.getUltimasPublicacoesLattes() !=null && !novoProfessor.getUltimasPublicacoesLattes().isEmpty())? novoProfessor.getUltimasPublicacoesLattes(): professorAtual.getUltimasPublicacoesLattes());
+	}	
 }
