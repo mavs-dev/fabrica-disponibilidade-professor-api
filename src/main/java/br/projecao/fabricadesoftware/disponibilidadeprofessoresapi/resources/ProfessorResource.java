@@ -56,25 +56,25 @@ public class ProfessorResource implements Resource<Professor>{
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Professor> create(@RequestBody @Valid Professor professor) {
-		pr.save(professor);
+	public ResponseEntity<Professor> create(@RequestBody @Valid Professor entity) {
+		pr.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
-		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-		if(professor.getId() == null || professor.getId().isEmpty()) {
+		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+		if(entity.getId() == null || entity.getId().isEmpty()) {
 			status = HttpStatus.NOT_MODIFIED;
-			headers.set(HttpHeaders.LOCATION, professor.getId());
+			header.set(HttpHeaders.LOCATION, entity.getId());
 		}
 		
-		return new ResponseEntity<>(null, headers, status);
+		return new ResponseEntity<>(null, header, status);
 	}
 	
 	@PatchMapping(value="/{id}")
-	public ResponseEntity<Professor> update(@PathVariable("id") String id, @RequestBody Professor professor) {
-		professor.setId(id);
-		fillInBlankFields(professor);
-		pr.save(professor);
+	public ResponseEntity<Professor> update(@PathVariable("id") String id, @RequestBody Professor entity) {
+		entity.setId(id);
+		fillInBlankFields(entity);
+		pr.save(entity);
 		HttpStatus status = HttpStatus.ACCEPTED;
-		if(professor.getId() == null || professor.getId().isEmpty()) {
+		if(entity.getId() == null || entity.getId().isEmpty()) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
 		return new ResponseEntity<>(null, status);
@@ -91,35 +91,35 @@ public class ProfessorResource implements Resource<Professor>{
 		return new ResponseEntity<>(null, status);
 	}
 	
-	public void fillInBlankFields(Professor professor) {
-		Professor professorAtual = pr.findById(professor.getId()).get();
-		merge(professor, professorAtual);
+	public void fillInBlankFields(Professor entity) {
+		Professor oldEntity = pr.findById(entity.getId()).get();
+		merge(entity, oldEntity);
 	}
 	
-	public void merge(Professor novoProfessor, Professor professorAtual) {
+	public void merge(Professor newEntity, Professor oldEntity) {
 		//dados pessoais
-		novoProfessor.setNome((novoProfessor.getNome() !=null && !novoProfessor.getNome().isEmpty())? novoProfessor.getNome(): professorAtual.getNome());
-		novoProfessor.setSobrenome((novoProfessor.getSobrenome() !=null && !novoProfessor.getSobrenome().isEmpty())? novoProfessor.getSobrenome(): professorAtual.getSobrenome());
-		novoProfessor.setApelido((novoProfessor.getApelido() !=null && !novoProfessor.getApelido().isEmpty())? novoProfessor.getApelido(): professorAtual.getApelido());
-		novoProfessor.setEndereco((novoProfessor.getEndereco() !=null && !novoProfessor.getEndereco().isEmpty())? novoProfessor.getEndereco(): professorAtual.getEndereco());
-		novoProfessor.setCidade((novoProfessor.getCidade() !=null && !novoProfessor.getCidade().isEmpty())? novoProfessor.getCidade(): professorAtual.getCidade());
-		novoProfessor.setCep((novoProfessor.getCep() !=null && !novoProfessor.getCep().isEmpty())? novoProfessor.getCep(): professorAtual.getCep());
-		novoProfessor.setTelefone((novoProfessor.getTelefone() !=null && !novoProfessor.getTelefone().isEmpty())? novoProfessor.getTelefone(): professorAtual.getTelefone());
-		novoProfessor.setCelular((novoProfessor.getCelular() !=null && !novoProfessor.getCelular().isEmpty())? novoProfessor.getCelular(): professorAtual.getCelular());
-		novoProfessor.setEmail((novoProfessor.getEmail() !=null && !novoProfessor.getEmail().isEmpty())? novoProfessor.getEmail(): professorAtual.getEmail());
+		newEntity.setNome((newEntity.getNome() !=null && !newEntity.getNome().isEmpty())? newEntity.getNome(): oldEntity.getNome());
+		newEntity.setSobrenome((newEntity.getSobrenome() !=null && !newEntity.getSobrenome().isEmpty())? newEntity.getSobrenome(): oldEntity.getSobrenome());
+		newEntity.setApelido((newEntity.getApelido() !=null && !newEntity.getApelido().isEmpty())? newEntity.getApelido(): oldEntity.getApelido());
+		newEntity.setEndereco((newEntity.getEndereco() !=null && !newEntity.getEndereco().isEmpty())? newEntity.getEndereco(): oldEntity.getEndereco());
+		newEntity.setCidade((newEntity.getCidade() !=null && !newEntity.getCidade().isEmpty())? newEntity.getCidade(): oldEntity.getCidade());
+		newEntity.setCep((newEntity.getCep() !=null && !newEntity.getCep().isEmpty())? newEntity.getCep(): oldEntity.getCep());
+		newEntity.setTelefone((newEntity.getTelefone() !=null && !newEntity.getTelefone().isEmpty())? newEntity.getTelefone(): oldEntity.getTelefone());
+		newEntity.setCelular((newEntity.getCelular() !=null && !newEntity.getCelular().isEmpty())? newEntity.getCelular(): oldEntity.getCelular());
+		newEntity.setEmail((newEntity.getEmail() !=null && !newEntity.getEmail().isEmpty())? newEntity.getEmail(): oldEntity.getEmail());
 		
 		//dados profissionais
-		novoProfessor.setDataConclusao((novoProfessor.getDataConclusao() !=null && !novoProfessor.getDataConclusao().toString().isEmpty())? novoProfessor.getDataConclusao(): professorAtual.getDataConclusao());
-		novoProfessor.setMaiorTitulacaoObtida((novoProfessor.getMaiorTitulacaoObtida() !=null && !novoProfessor.getMaiorTitulacaoObtida().isEmpty())? novoProfessor.getMaiorTitulacaoObtida(): professorAtual.getMaiorTitulacaoObtida());
-		novoProfessor.setTitulacaoEmAndamento((novoProfessor.getTitulacaoEmAndamento() !=null)? novoProfessor.getTitulacaoEmAndamento(): professorAtual.getTitulacaoEmAndamento());
-		novoProfessor.setNomeTitulacaoEmAndamento((novoProfessor.getNomeTitulacaoEmAndamento() !=null && !novoProfessor.getNomeTitulacaoEmAndamento().isEmpty())? novoProfessor.getNomeTitulacaoEmAndamento(): professorAtual.getNomeTitulacaoEmAndamento());
-		novoProfessor.setEstimativaTerminoTitulacaoEmAndamento((novoProfessor.getEstimativaTerminoTitulacaoEmAndamento() !=null && !novoProfessor.getEstimativaTerminoTitulacaoEmAndamento().toString().isEmpty())? novoProfessor.getEstimativaTerminoTitulacaoEmAndamento(): professorAtual.getEstimativaTerminoTitulacaoEmAndamento());
-		novoProfessor.setPrincipalAtuacaoProfissional((novoProfessor.getPrincipalAtuacaoProfissional() !=null && !novoProfessor.getPrincipalAtuacaoProfissional().isEmpty())? novoProfessor.getPrincipalAtuacaoProfissional(): professorAtual.getPrincipalAtuacaoProfissional());
-		novoProfessor.setTempoExpProfissional((novoProfessor.getTempoExpProfissional() !=null)? novoProfessor.getTempoExpProfissional(): professorAtual.getTempoExpProfissional());
-		novoProfessor.setTempoExpEmMagisterioSuperior((novoProfessor.getTempoExpEmMagisterioSuperior() !=null)? novoProfessor.getTempoExpEmMagisterioSuperior(): professorAtual.getTempoExpEmMagisterioSuperior());
-		novoProfessor.setTempoExpDocenciaNaEdBasica((novoProfessor.getTempoExpDocenciaNaEdBasica() !=null)? novoProfessor.getTempoExpDocenciaNaEdBasica(): professorAtual.getTempoExpDocenciaNaEdBasica());
-		novoProfessor.setUltimaAttLattes((novoProfessor.getUltimaAttLattes() !=null && !novoProfessor.getUltimaAttLattes().toString().isEmpty())? novoProfessor.getUltimaAttLattes(): professorAtual.getUltimaAttLattes());
-		novoProfessor.setUrlLattes((novoProfessor.getUrlLattes() !=null && !novoProfessor.getUrlLattes().isEmpty())? novoProfessor.getUrlLattes(): professorAtual.getUrlLattes());
-		novoProfessor.setUltimasPublicacoesLattes((novoProfessor.getUltimasPublicacoesLattes() !=null && !novoProfessor.getUltimasPublicacoesLattes().isEmpty())? novoProfessor.getUltimasPublicacoesLattes(): professorAtual.getUltimasPublicacoesLattes());
+		newEntity.setDataConclusao((newEntity.getDataConclusao() !=null && !newEntity.getDataConclusao().toString().isEmpty())? newEntity.getDataConclusao(): oldEntity.getDataConclusao());
+		newEntity.setMaiorTitulacaoObtida((newEntity.getMaiorTitulacaoObtida() !=null && !newEntity.getMaiorTitulacaoObtida().isEmpty())? newEntity.getMaiorTitulacaoObtida(): oldEntity.getMaiorTitulacaoObtida());
+		newEntity.setTitulacaoEmAndamento((newEntity.getTitulacaoEmAndamento() !=null)? newEntity.getTitulacaoEmAndamento(): oldEntity.getTitulacaoEmAndamento());
+		newEntity.setNomeTitulacaoEmAndamento((newEntity.getNomeTitulacaoEmAndamento() !=null && !newEntity.getNomeTitulacaoEmAndamento().isEmpty())? newEntity.getNomeTitulacaoEmAndamento(): oldEntity.getNomeTitulacaoEmAndamento());
+		newEntity.setEstimativaTerminoTitulacaoEmAndamento((newEntity.getEstimativaTerminoTitulacaoEmAndamento() !=null && !newEntity.getEstimativaTerminoTitulacaoEmAndamento().toString().isEmpty())? newEntity.getEstimativaTerminoTitulacaoEmAndamento(): oldEntity.getEstimativaTerminoTitulacaoEmAndamento());
+		newEntity.setPrincipalAtuacaoProfissional((newEntity.getPrincipalAtuacaoProfissional() !=null && !newEntity.getPrincipalAtuacaoProfissional().isEmpty())? newEntity.getPrincipalAtuacaoProfissional(): oldEntity.getPrincipalAtuacaoProfissional());
+		newEntity.setTempoExpProfissional((newEntity.getTempoExpProfissional() !=null)? newEntity.getTempoExpProfissional(): oldEntity.getTempoExpProfissional());
+		newEntity.setTempoExpEmMagisterioSuperior((newEntity.getTempoExpEmMagisterioSuperior() !=null)? newEntity.getTempoExpEmMagisterioSuperior(): oldEntity.getTempoExpEmMagisterioSuperior());
+		newEntity.setTempoExpDocenciaNaEdBasica((newEntity.getTempoExpDocenciaNaEdBasica() !=null)? newEntity.getTempoExpDocenciaNaEdBasica(): oldEntity.getTempoExpDocenciaNaEdBasica());
+		newEntity.setUltimaAttLattes((newEntity.getUltimaAttLattes() !=null && !newEntity.getUltimaAttLattes().toString().isEmpty())? newEntity.getUltimaAttLattes(): oldEntity.getUltimaAttLattes());
+		newEntity.setUrlLattes((newEntity.getUrlLattes() !=null && !newEntity.getUrlLattes().isEmpty())? newEntity.getUrlLattes(): oldEntity.getUrlLattes());
+		newEntity.setUltimasPublicacoesLattes((newEntity.getUltimasPublicacoesLattes() !=null && !newEntity.getUltimasPublicacoesLattes().isEmpty())? newEntity.getUltimasPublicacoesLattes(): oldEntity.getUltimasPublicacoesLattes());
 	}	
 }

@@ -15,6 +15,6 @@ public interface Resource<Model> {
 	public ResponseEntity<Model> delete(String id);
 	
 	void fillInBlankFields(Model entity);
-	void merge(Model newModel, Model oldModel);
+	void merge(Model newEntity, Model oldEntity);
 	
 }
