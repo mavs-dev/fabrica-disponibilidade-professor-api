@@ -7,8 +7,7 @@ import java.util.Map;
 
 public class DisciplinasMinistradas {
 	
-	private String _id;
-	private String _idProfessor;
+	private Long id;
 	private Integer periodo;
 	private Integer ano;
 	private LocalDate dataCadastro;
@@ -16,17 +15,11 @@ public class DisciplinasMinistradas {
 	private List<Map<UnidadeAcademica, Integer>> cargaHorariaPorUnidade;
 	private List<DisciplinaMinistrada> disciplinasMinistradasPorUnidadeAcademica;
 	
-	public String get_id() {
-		return _id;
+	public Long getId() {
+		return id;
 	}
-	public void set_id(String _id) {
-		this._id = _id;
-	}
-	public String get_idProfessor() {
-		return _idProfessor;
-	}
-	public void set_idProfessor(String _idProfessor) {
-		this._idProfessor = _idProfessor;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public Integer getPeriodo() {
 		return periodo;

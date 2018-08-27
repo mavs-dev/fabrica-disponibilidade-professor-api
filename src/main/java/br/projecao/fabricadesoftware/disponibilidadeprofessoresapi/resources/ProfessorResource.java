@@ -46,7 +46,7 @@ public class ProfessorResource implements Resource<Professor>{
 	
 	@GetMapping()
 	@RequestMapping(value ="/{id}")
-	public ResponseEntity<Optional<Professor>> listOne(@PathVariable("id") String id) {
+	public ResponseEntity<Optional<Professor>> listOne(@PathVariable("id") Long id) {
 		Optional<Professor> professor = pr.findById(id);
 		HttpStatus status = HttpStatus.OK;
 		if(!professor.isPresent()) {
@@ -60,28 +60,28 @@ public class ProfessorResource implements Resource<Professor>{
 		pr.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
 		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
-		if(entity.getId() == null || entity.getId().isEmpty()) {
+		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
-			header.set(HttpHeaders.LOCATION, entity.getId());
+			header.set(HttpHeaders.LOCATION, entity.getId().toString());
 		}
 		
 		return new ResponseEntity<>(null, header, status);
 	}
 	
 	@PatchMapping(value="/{id}")
-	public ResponseEntity<Professor> update(@PathVariable("id") String id, @RequestBody Professor entity) {
+	public ResponseEntity<Professor> update(@PathVariable("id") Long id, @RequestBody Professor entity) {
 		entity.setId(id);
 		fillInBlankFields(entity);
 		pr.save(entity);
 		HttpStatus status = HttpStatus.ACCEPTED;
-		if(entity.getId() == null || entity.getId().isEmpty()) {
+		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
 		return new ResponseEntity<>(null, status);
 	}
 	
 	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Professor> delete(@PathVariable("id") String id) {
+	public ResponseEntity<Professor> delete(@PathVariable("id") Long id) {
 		HttpStatus status = HttpStatus.NO_CONTENT;
 		if(pr.existsById(id)) {
 			pr.deleteById(id);

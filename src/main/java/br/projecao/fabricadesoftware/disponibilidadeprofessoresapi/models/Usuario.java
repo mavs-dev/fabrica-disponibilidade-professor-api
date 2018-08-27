@@ -1,39 +1,59 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.lang.NonNull;
 
 @Entity
 @Table(name = "USUARIO")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Usuario {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String id;
+	@SequenceGenerator( name = "dp_seq_usuario", sequenceName = "dp_seq_usuario")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
+	@Column(length = 25)
 	private String nome;
+	@Column(length = 30)
 	private String sobrenome;
+	@Column(length = 10)
 	private String apelido;
+	@Column(length = 100)
 	private String endereco;
+	@Column(length = 35)
 	private String cidade;
+	@Column(length = 2)
 	private String uf;
+	@Column(length = 8)
 	private String cep;
+	@Column(length = 10)
 	private String telefone;
+	@Column(length = 11)
 	private String celular;
+	@NonNull
+	@Column(length = 75, unique= true)
 	private String email;
 	
+	@ManyToOne
+	@JoinColumn(name = "tipo_usuario")
 	private TipoUsuario tipoUsuario;
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNome() {
@@ -96,4 +116,11 @@ public abstract class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+	
 }

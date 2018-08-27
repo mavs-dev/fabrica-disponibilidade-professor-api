@@ -2,14 +2,22 @@ package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+import org.springframework.lang.NonNull;
+
+@Entity
+@Table(name= "DADOS_PROFISSIONAIS")
 public class Professor extends Usuario {
 
 	public Professor() {
 		super();
 	}
 
-	// PROFESSIONAL DATA
+	@NonNull
+	@Column(length = 75, nullable=false)
 	private String graduacao;
 	private LocalDate dataConclusao;
 	private String maiorTitulacaoObtida;

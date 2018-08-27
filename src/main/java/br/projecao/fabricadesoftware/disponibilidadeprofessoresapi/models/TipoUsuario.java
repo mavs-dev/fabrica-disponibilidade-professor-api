@@ -1,15 +1,18 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.lang.NonNull;
 
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.NivelAcesso;
@@ -28,6 +31,9 @@ public class TipoUsuario {
 	@Column(name = "nivel_acesso")
 	@NonNull
 	private NivelAcesso nivelAcesso;
+	
+	@OneToMany(mappedBy = "tipoUsuario")
+	private List<Usuario> usuarios;
 	
 	public Integer getId() {
 		return id;
