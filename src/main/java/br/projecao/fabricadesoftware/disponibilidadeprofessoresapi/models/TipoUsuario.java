@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.lang.NonNull;
@@ -22,23 +23,25 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Nivel
 public class TipoUsuario {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	@SequenceGenerator(name = "dp_seq_tipo_usuario", sequenceName = "dp_seq_tipo_usuario")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
+	
 	@Column(length = 20, unique = true)
 	@NonNull
 	private String descricao;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "nivel_acesso")
-	@NonNull
 	private NivelAcesso nivelAcesso;
 	
 	@OneToMany(mappedBy = "tipoUsuario")
 	private List<Usuario> usuarios;
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getDescricao() {
@@ -53,5 +56,11 @@ public class TipoUsuario {
 	public void setNivelAcesso(NivelAcesso nivelAcesso) {
 		this.nivelAcesso = nivelAcesso;
 	}
-	
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
 }

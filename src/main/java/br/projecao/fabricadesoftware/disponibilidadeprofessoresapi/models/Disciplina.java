@@ -1,7 +1,10 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import org.springframework.data.annotation.Id;
@@ -12,21 +15,22 @@ public class Disciplina {
 	@SequenceGenerator( name = "dp_seq_disciplina", sequenceName = "dp_seq_disciplina")
 	@GeneratedValue( strategy = GenerationType.SEQUENCE)
 	private Long id;
-	private String nome;
-	private String descricao;
-	private String campoDeAtuacao;
 	
+	@Column(length = 30, nullable = false, unique = true)
+	private String descricao;
+	
+	@Column(length = 3, nullable = false)
+	private Integer cargaHoraria;
+	
+	@ManyToOne
+	@JoinColumn(name = "area_de_conhecimento")
+	private AreaDeConhecimento areaDeConhecimento;
+
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 	public String getDescricao() {
 		return descricao;
@@ -34,10 +38,10 @@ public class Disciplina {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public String getCampoDeAtuacao() {
-		return campoDeAtuacao;
+	public Integer getCargaHoraria() {
+		return cargaHoraria;
 	}
-	public void setCampoDeAtuacao(String campoDeAtuacao) {
-		this.campoDeAtuacao = campoDeAtuacao;
+	public void setCargaHoraria(Integer cargaHoraria) {
+		this.cargaHoraria = cargaHoraria;
 	}
 }

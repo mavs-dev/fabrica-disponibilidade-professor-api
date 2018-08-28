@@ -32,32 +32,32 @@ import org.springframework.http.ResponseEntity;
 public class ProfessorResource implements Resource<Professor>{
 	
 	@Autowired
-	private ProfessorRepository pr;
+	private ProfessorRepository repository;
 	
-	@GetMapping()
+	@GetMapping
 	public ResponseEntity<List<Professor>> listAll() {
-		List<Professor> listaProfessores = pr.findAll();
+		List<Professor> listaProfessores = repository.findAll();
 		HttpStatus status = HttpStatus.OK;
 		if(listaProfessores == null || listaProfessores.isEmpty()) {
-			status = HttpStatus.NOT_FOUND;
+			status = HttpStatus.NO_CONTENT;
 		}
 		return new ResponseEntity<List<Professor>>(listaProfessores, status);
 	}
 	
-	@GetMapping()
+	@GetMapping
 	@RequestMapping(value ="/{id}")
 	public ResponseEntity<Optional<Professor>> listOne(@PathVariable("id") Long id) {
-		Optional<Professor> professor = pr.findById(id);
+		Optional<Professor> professor = repository.findById(id);
 		HttpStatus status = HttpStatus.OK;
 		if(!professor.isPresent()) {
-			status = HttpStatus.NOT_FOUND;
+			status = HttpStatus.NO_CONTENT;
 		}
 		return new ResponseEntity<Optional<Professor>>(professor, status);
 	}
 	
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<Professor> create(@RequestBody @Valid Professor entity) {
-		pr.save(entity);
+		repository.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
 		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
@@ -72,7 +72,7 @@ public class ProfessorResource implements Resource<Professor>{
 	public ResponseEntity<Professor> update(@PathVariable("id") Long id, @RequestBody Professor entity) {
 		entity.setId(id);
 		fillInBlankFields(entity);
-		pr.save(entity);
+		repository.save(entity);
 		HttpStatus status = HttpStatus.ACCEPTED;
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
@@ -83,8 +83,8 @@ public class ProfessorResource implements Resource<Professor>{
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Professor> delete(@PathVariable("id") Long id) {
 		HttpStatus status = HttpStatus.NO_CONTENT;
-		if(pr.existsById(id)) {
-			pr.deleteById(id);
+		if(repository.existsById(id)) {
+			repository.deleteById(id);
 		}else {
 			status = HttpStatus.NOT_MODIFIED;
 		}
@@ -92,7 +92,7 @@ public class ProfessorResource implements Resource<Professor>{
 	}
 	
 	public void fillInBlankFields(Professor entity) {
-		Professor oldEntity = pr.findById(entity.getId()).get();
+		Professor oldEntity = repository.findById(entity.getId()).get();
 		merge(entity, oldEntity);
 	}
 	

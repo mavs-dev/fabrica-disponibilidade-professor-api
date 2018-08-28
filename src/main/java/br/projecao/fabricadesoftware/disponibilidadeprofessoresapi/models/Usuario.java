@@ -2,7 +2,6 @@ package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,24 +23,34 @@ public abstract class Usuario {
 	@SequenceGenerator( name = "dp_seq_usuario", sequenceName = "dp_seq_usuario")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
+	
 	@Column(length = 25)
 	private String nome;
+	
 	@Column(length = 30)
 	private String sobrenome;
+	
 	@Column(length = 10)
 	private String apelido;
+	
 	@Column(length = 100)
 	private String endereco;
+	
 	@Column(length = 35)
 	private String cidade;
+	
 	@Column(length = 2)
 	private String uf;
+	
 	@Column(length = 8)
 	private String cep;
+	
 	@Column(length = 10)
 	private String telefone;
+	
 	@Column(length = 11)
 	private String celular;
+	
 	@NonNull
 	@Column(length = 75, unique= true)
 	private String email;

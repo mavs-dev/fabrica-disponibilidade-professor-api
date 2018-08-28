@@ -1,10 +1,14 @@
  package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -12,7 +16,8 @@ import javax.persistence.Table;
 public class UnidadeAcademica {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "dp_seq_uni_academica", sequenceName="dp_seq_uni_academica")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private String id;
 	@Column(length = 25)
 	private String nome;
@@ -20,6 +25,9 @@ public class UnidadeAcademica {
 	private String cidade;
 	@Column(length = 150)
 	private String endereco;
+	
+	@OneToMany(mappedBy = "unidadeAcademica")
+	private List<DisciplinaMinistrada> disciplinasMinistradas;
 	
 	public String getId() {
 		return id;
@@ -45,5 +53,13 @@ public class UnidadeAcademica {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+	public List<DisciplinaMinistrada> getDisciplinasMinistradas() {
+		return disciplinasMinistradas;
+	}
+	public void setDisciplinasMinistradas(List<DisciplinaMinistrada> disciplinasMinistradas) {
+		this.disciplinasMinistradas = disciplinasMinistradas;
+	}
+	
+	
 	
 }
