@@ -10,6 +10,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name= "DADOS_PROFISSIONAIS")
 public class Professor extends Usuario {
@@ -35,9 +37,11 @@ public class Professor extends Usuario {
 	@JoinColumn(name = "curriculo_lattes")
 	private CurriculoLattes curriculoLattes;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "professor")
 	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "professor")
 	private List<Titulacao> titulacoes;
 

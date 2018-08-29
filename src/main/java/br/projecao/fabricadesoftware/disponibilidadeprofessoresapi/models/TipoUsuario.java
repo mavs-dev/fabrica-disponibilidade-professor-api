@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import org.springframework.lang.NonNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.NivelAcesso;
 

@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "TITULACAO")
 public class Titulacao {
@@ -28,6 +30,7 @@ public class Titulacao {
 	private Boolean maiorTitulacaoObtida;
 	private LocalDate dataTermino;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "professor")
 	private Professor professor;
