@@ -16,6 +16,9 @@ import javax.persistence.Table;
 
 import org.springframework.lang.NonNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.NivelAcesso;
 
 @Entity
@@ -35,6 +38,7 @@ public class TipoUsuario {
 	@Column(name = "nivel_acesso")
 	private NivelAcesso nivelAcesso;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "tipoUsuario")
 	private List<Usuario> usuarios;
 	

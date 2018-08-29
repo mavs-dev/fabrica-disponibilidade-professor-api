@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -30,6 +29,55 @@ public class Titulacao {
 	private LocalDate dataTermino;
 	
 	@ManyToOne
-	@JoinColumn(name = "usuario")
-	private Usuario usuario;
+	@JoinColumn(name = "professor")
+	private Professor professor;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Boolean getTitulacaoEmAndamento() {
+		return titulacaoEmAndamento;
+	}
+
+	public void setTitulacaoEmAndamento(Boolean titulacaoEmAndamento) {
+		this.titulacaoEmAndamento = titulacaoEmAndamento;
+	}
+
+	public Boolean getMaiorTitulacaoObtida() {
+		return maiorTitulacaoObtida;
+	}
+
+	public void setMaiorTitulacaoObtida(Boolean maiorTitulacaoObtida) {
+		this.maiorTitulacaoObtida = maiorTitulacaoObtida;
+	}
+
+	public LocalDate getDataTermino() {
+		return dataTermino;
+	}
+
+	public void setDataTermino(LocalDate dataTermino) {
+		this.dataTermino = dataTermino;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+	
 }

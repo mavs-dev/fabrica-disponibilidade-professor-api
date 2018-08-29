@@ -34,6 +34,9 @@ public class Disciplina {
 	
 	@OneToMany(mappedBy = "disciplinaMin")
 	private List<DisciplinaMinistrada> disciplinasMinistradas;
+	
+	@OneToMany(mappedBy = "disciplina")
+	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
 
 	public Long getId() {
 		return id;
@@ -64,6 +67,12 @@ public class Disciplina {
 	}
 	public void setDisciplinasMinistradas(List<DisciplinaMinistrada> disciplinasMinistradas) {
 		this.disciplinasMinistradas = disciplinasMinistradas;
+	}
+	public List<DisciplinaDeInteresse> getDisciplinasDeInteresse() {
+		return disciplinasDeInteresse;
+	}
+	public void setDisciplinasDeInteresse(List<DisciplinaDeInteresse> disciplinasDeInteresse) {
+		this.disciplinasDeInteresse = disciplinasDeInteresse;
 	}
 	
 }

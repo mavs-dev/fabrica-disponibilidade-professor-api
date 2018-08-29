@@ -110,16 +110,9 @@ public class ProfessorResource implements Resource<Professor>{
 		
 		//dados profissionais
 		newEntity.setDataConclusao((newEntity.getDataConclusao() !=null && !newEntity.getDataConclusao().toString().isEmpty())? newEntity.getDataConclusao(): oldEntity.getDataConclusao());
-		newEntity.setMaiorTitulacaoObtida((newEntity.getMaiorTitulacaoObtida() !=null && !newEntity.getMaiorTitulacaoObtida().isEmpty())? newEntity.getMaiorTitulacaoObtida(): oldEntity.getMaiorTitulacaoObtida());
-		newEntity.setTitulacaoEmAndamento((newEntity.getTitulacaoEmAndamento() !=null)? newEntity.getTitulacaoEmAndamento(): oldEntity.getTitulacaoEmAndamento());
-		newEntity.setNomeTitulacaoEmAndamento((newEntity.getNomeTitulacaoEmAndamento() !=null && !newEntity.getNomeTitulacaoEmAndamento().isEmpty())? newEntity.getNomeTitulacaoEmAndamento(): oldEntity.getNomeTitulacaoEmAndamento());
-		newEntity.setEstimativaTerminoTitulacaoEmAndamento((newEntity.getEstimativaTerminoTitulacaoEmAndamento() !=null && !newEntity.getEstimativaTerminoTitulacaoEmAndamento().toString().isEmpty())? newEntity.getEstimativaTerminoTitulacaoEmAndamento(): oldEntity.getEstimativaTerminoTitulacaoEmAndamento());
 		newEntity.setPrincipalAtuacaoProfissional((newEntity.getPrincipalAtuacaoProfissional() !=null && !newEntity.getPrincipalAtuacaoProfissional().isEmpty())? newEntity.getPrincipalAtuacaoProfissional(): oldEntity.getPrincipalAtuacaoProfissional());
 		newEntity.setTempoExpProfissional((newEntity.getTempoExpProfissional() !=null)? newEntity.getTempoExpProfissional(): oldEntity.getTempoExpProfissional());
 		newEntity.setTempoExpEmMagisterioSuperior((newEntity.getTempoExpEmMagisterioSuperior() !=null)? newEntity.getTempoExpEmMagisterioSuperior(): oldEntity.getTempoExpEmMagisterioSuperior());
 		newEntity.setTempoExpDocenciaNaEdBasica((newEntity.getTempoExpDocenciaNaEdBasica() !=null)? newEntity.getTempoExpDocenciaNaEdBasica(): oldEntity.getTempoExpDocenciaNaEdBasica());
-		newEntity.setUltimaAttLattes((newEntity.getUltimaAttLattes() !=null && !newEntity.getUltimaAttLattes().toString().isEmpty())? newEntity.getUltimaAttLattes(): oldEntity.getUltimaAttLattes());
-		newEntity.setUrlLattes((newEntity.getUrlLattes() !=null && !newEntity.getUrlLattes().isEmpty())? newEntity.getUrlLattes(): oldEntity.getUrlLattes());
-		newEntity.setUltimasPublicacoesLattes((newEntity.getUltimasPublicacoesLattes() !=null && !newEntity.getUltimasPublicacoesLattes().isEmpty())? newEntity.getUltimasPublicacoesLattes(): oldEntity.getUltimasPublicacoesLattes());
 	}	
 }

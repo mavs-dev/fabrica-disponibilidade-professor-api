@@ -1,7 +1,5 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.lang.NonNull;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "USUARIO")
@@ -53,15 +52,13 @@ public abstract class Usuario {
 	@Column(length = 11)
 	private String celular;
 
-	@NonNull
 	@Column(length = 75, unique = true)
 	private String email;
 
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "tipo_usuario")
 	private TipoUsuario tipoUsuario;
-
-	private List<Titulacao> titulacoes;
 
 	public Long getId() {
 		return id;
@@ -157,14 +154,6 @@ public abstract class Usuario {
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
-	}
-
-	public List<Titulacao> getTitulacoes() {
-		return titulacoes;
-	}
-
-	public void setTitulacoes(List<Titulacao> titulacoes) {
-		this.titulacoes = titulacoes;
 	}
 
 }

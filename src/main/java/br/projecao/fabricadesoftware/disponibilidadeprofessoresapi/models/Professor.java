@@ -1,12 +1,14 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.springframework.lang.NonNull;
 
 @Entity
 @Table(name= "DADOS_PROFISSIONAIS")
@@ -16,21 +18,28 @@ public class Professor extends Usuario {
 		super();
 	}
 
-	@NonNull
 	@Column(length = 75, nullable=false)
 	private String graduacao;
+	
 	private LocalDate dataConclusao;
-	private String maiorTitulacaoObtida;
-	private Boolean titulacaoEmAndamento;
-	private String nomeTitulacaoEmAndamento;
-	private LocalDate estimativaTerminoTitulacaoEmAndamento;
+	
+	private Boolean maiorTitulacaoObtida;
+	@Column(length = 75, nullable=false)
 	private String principalAtuacaoProfissional;
+	
 	private Integer tempoExpProfissional;
 	private Integer tempoExpEmMagisterioSuperior;
 	private Integer tempoExpDocenciaNaEdBasica;
-	private LocalDate ultimaAttLattes;
-	private String urlLattes;
-	private String ultimasPublicacoesLattes;
+
+	@OneToOne
+	@JoinColumn(name = "curriculo_lattes")
+	private CurriculoLattes curriculoLattes;
+	
+	@OneToMany(mappedBy = "professor")
+	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
+	
+	@OneToMany(mappedBy = "professor")
+	private List<Titulacao> titulacoes;
 
 	public String getGraduacao() {
 		return graduacao;
@@ -48,36 +57,12 @@ public class Professor extends Usuario {
 		this.dataConclusao = dataConclusao;
 	}
 
-	public String getMaiorTitulacaoObtida() {
+	public Boolean getMaiorTitulacaoObtida() {
 		return maiorTitulacaoObtida;
 	}
 
-	public void setMaiorTitulacaoObtida(String maiorTitulacaoObtida) {
+	public void setMaiorTitulacaoObtida(Boolean maiorTitulacaoObtida) {
 		this.maiorTitulacaoObtida = maiorTitulacaoObtida;
-	}
-
-	public Boolean getTitulacaoEmAndamento() {
-		return titulacaoEmAndamento;
-	}
-
-	public void setTitulacaoEmAndamento(Boolean titulacaoEmAndamento) {
-		this.titulacaoEmAndamento = titulacaoEmAndamento;
-	}
-
-	public String getNomeTitulacaoEmAndamento() {
-		return nomeTitulacaoEmAndamento;
-	}
-
-	public void setNomeTitulacaoEmAndamento(String nomeTitulacaoEmAndamento) {
-		this.nomeTitulacaoEmAndamento = nomeTitulacaoEmAndamento;
-	}
-
-	public LocalDate getEstimativaTerminoTitulacaoEmAndamento() {
-		return estimativaTerminoTitulacaoEmAndamento;
-	}
-
-	public void setEstimativaTerminoTitulacaoEmAndamento(LocalDate estimativaTerminoTitulacaoEmAndamento) {
-		this.estimativaTerminoTitulacaoEmAndamento = estimativaTerminoTitulacaoEmAndamento;
 	}
 
 	public String getPrincipalAtuacaoProfissional() {
@@ -112,28 +97,27 @@ public class Professor extends Usuario {
 		this.tempoExpDocenciaNaEdBasica = tempoExpDocenciaNaEdBasica;
 	}
 
-	public LocalDate getUltimaAttLattes() {
-		return ultimaAttLattes;
+	public CurriculoLattes getCurriculoLattes() {
+		return curriculoLattes;
 	}
 
-	public void setUltimaAttLattes(LocalDate ultimaAttLattes) {
-		this.ultimaAttLattes = ultimaAttLattes;
+	public void setCurriculoLattes(CurriculoLattes curriculoLattes) {
+		this.curriculoLattes = curriculoLattes;
 	}
 
-	public String getUrlLattes() {
-		return urlLattes;
+	public List<DisciplinaDeInteresse> getDisciplinasDeInteresse() {
+		return disciplinasDeInteresse;
 	}
 
-	public void setUrlLattes(String urlLattes) {
-		this.urlLattes = urlLattes;
+	public void setDisciplinasDeInteresse(List<DisciplinaDeInteresse> disciplinasDeInteresse) {
+		this.disciplinasDeInteresse = disciplinasDeInteresse;
 	}
 
-	public String getUltimasPublicacoesLattes() {
-		return ultimasPublicacoesLattes;
+	public List<Titulacao> getTitulacoes() {
+		return titulacoes;
 	}
 
-	public void setUltimasPublicacoesLattes(String ultimasPublicacoesLattes) {
-		this.ultimasPublicacoesLattes = ultimasPublicacoesLattes;
+	public void setTitulacoes(List<Titulacao> titulacoes) {
+		this.titulacoes = titulacoes;
 	}
-
 }

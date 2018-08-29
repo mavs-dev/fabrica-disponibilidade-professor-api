@@ -32,6 +32,9 @@ public class UnidadeAcademica {
 	@OneToMany(mappedBy = "unidadeAcademica")
 	private List<DisciplinaMinistrada> disciplinasMinistradas;
 	
+	@OneToMany(mappedBy = "unidadeAcademica")
+	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
+	
 	public String getId() {
 		return id;
 	}
@@ -62,5 +65,10 @@ public class UnidadeAcademica {
 	public void setDisciplinasMinistradas(List<DisciplinaMinistrada> disciplinasMinistradas) {
 		this.disciplinasMinistradas = disciplinasMinistradas;
 	}
-	
+	public List<DisciplinaDeInteresse> getDisciplinasDeInteresse() {
+		return disciplinasDeInteresse;
+	}
+	public void setDisciplinasDeInteresse(List<DisciplinaDeInteresse> disciplinasDeInteresse) {
+		this.disciplinasDeInteresse = disciplinasDeInteresse;
+	}
 }
