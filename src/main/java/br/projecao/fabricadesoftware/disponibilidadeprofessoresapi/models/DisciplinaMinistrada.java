@@ -37,6 +37,10 @@ public class DisciplinaMinistrada {
 	@Column(length = 1)
 	private Integer semestre;
 	
+	@ManyToOne
+	@JoinColumn(name = "disciplina_min")
+	private Disciplina disciplinaMin;
+	
 	public Long getId() {
 		return id;
 	}
@@ -66,6 +70,12 @@ public class DisciplinaMinistrada {
 	}
 	public void setSemestre(Integer semestre) {
 		this.semestre = semestre;
+	}
+	public Disciplina getDisciplinaMin() {
+		return disciplinaMin;
+	}
+	public void setDisciplinaMin(Disciplina disciplinaMin) {
+		this.disciplinaMin = disciplinaMin;
 	}
 	
 }

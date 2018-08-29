@@ -3,12 +3,16 @@ package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "AREA_DE_CONHECIMENTO")
 public class AreaDeConhecimento {
 
 	@Id
@@ -33,6 +37,12 @@ public class AreaDeConhecimento {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 		
 }

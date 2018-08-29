@@ -19,10 +19,13 @@ public class UnidadeAcademica {
 	@SequenceGenerator(name = "dp_seq_uni_academica", sequenceName="dp_seq_uni_academica")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private String id;
+	
 	@Column(length = 25)
 	private String nome;
+	
 	@Column(length = 60)
 	private String cidade;
+	
 	@Column(length = 150)
 	private String endereco;
 	
@@ -59,7 +62,5 @@ public class UnidadeAcademica {
 	public void setDisciplinasMinistradas(List<DisciplinaMinistrada> disciplinasMinistradas) {
 		this.disciplinasMinistradas = disciplinasMinistradas;
 	}
-	
-	
 	
 }
