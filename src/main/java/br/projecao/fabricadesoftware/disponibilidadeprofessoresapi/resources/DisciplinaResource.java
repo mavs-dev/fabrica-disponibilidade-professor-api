@@ -8,40 +8,45 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models.DisciplinaDeInteresse;
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.DisciplinaDeInteresseRepository;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models.Disciplina;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.DisciplinaRepository;
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
 
-public class DisciplinaDeInteresseResource implements Resource<DisciplinaDeInteresse>{
+@RestController
+@RequestMapping(value="/disciplina", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+public class DisciplinaResource implements Resource<Disciplina>{
 
 	@Autowired
-	private DisciplinaDeInteresseRepository repository;
+	private DisciplinaRepository repository;
 	
-	public ResponseEntity<List<DisciplinaDeInteresse>> getAll() {
-		List<DisciplinaDeInteresse> lista = repository.findAll();
+	public ResponseEntity<List<Disciplina>> getAll() {
+		List<Disciplina> lista = repository.findAll();
 		HttpStatus status = HttpStatus.OK;
 		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<DisciplinaDeInteresse>>(lista, status);
+		return new ResponseEntity<List<Disciplina>>(lista, status);
 	}
 	
-	public ResponseEntity<Optional<DisciplinaDeInteresse>> getOne(Long id) {
-		Optional<DisciplinaDeInteresse> model = repository.findById(id);
+	public ResponseEntity<Optional<Disciplina>> getOne(Long id) {
+		Optional<Disciplina> model = repository.findById(id);
 		HttpStatus status = HttpStatus.OK;
 		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<DisciplinaDeInteresse>>(model, status);
+		return new ResponseEntity<Optional<Disciplina>>(model, status);
 	}
 	
-	public ResponseEntity<DisciplinaDeInteresse> post(@RequestBody @Valid DisciplinaDeInteresse entity) {
+	public ResponseEntity<Disciplina> post(@RequestBody @Valid Disciplina entity) {
 		repository.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
 		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
@@ -53,7 +58,7 @@ public class DisciplinaDeInteresseResource implements Resource<DisciplinaDeInter
 		return new ResponseEntity<>(null, header, status);
 	}
 	
-	public ResponseEntity<DisciplinaDeInteresse> patch(@PathVariable("id") Long id, @RequestBody DisciplinaDeInteresse entity) {
+	public ResponseEntity<Disciplina> patch(@PathVariable("id") Long id, @RequestBody Disciplina entity) {
 		entity.setId(id);
 		fillInBlankFields(entity);
 		repository.save(entity);
@@ -64,7 +69,7 @@ public class DisciplinaDeInteresseResource implements Resource<DisciplinaDeInter
 		return new ResponseEntity<>(null, status);
 	}
 	
-	public ResponseEntity<DisciplinaDeInteresse> put(@PathVariable("id") Long id, @RequestBody DisciplinaDeInteresse entity) {
+	public ResponseEntity<Disciplina> put(@PathVariable("id") Long id, @RequestBody Disciplina entity) {
 		entity.setId(id);
 		repository.save(entity);
 		HttpStatus status = HttpStatus.ACCEPTED;
@@ -74,7 +79,7 @@ public class DisciplinaDeInteresseResource implements Resource<DisciplinaDeInter
 		return new ResponseEntity<>(null, status);
 	}
 	
-	public ResponseEntity<DisciplinaDeInteresse> delete(@PathVariable("id") Long id) {
+	public ResponseEntity<Disciplina> delete(@PathVariable("id") Long id) {
 		HttpStatus status = HttpStatus.NO_CONTENT;
 		if(repository.existsById(id)) {
 			repository.deleteById(id);
@@ -84,12 +89,12 @@ public class DisciplinaDeInteresseResource implements Resource<DisciplinaDeInter
 		return new ResponseEntity<>(null, status);
 	}
 	
-	public void fillInBlankFields(DisciplinaDeInteresse entity) {
-		DisciplinaDeInteresse oldEntity = repository.findById(entity.getId()).get();
+	public void fillInBlankFields(Disciplina entity) {
+		Disciplina oldEntity = repository.findById(entity.getId()).get();
 		merge(entity, oldEntity);
 	}
 	
-	public void merge(DisciplinaDeInteresse newEntity, DisciplinaDeInteresse oldEntity) {
+	public void merge(Disciplina newEntity, Disciplina oldEntity) {
 		// TODO Auto-generated method stub
 		
 	}

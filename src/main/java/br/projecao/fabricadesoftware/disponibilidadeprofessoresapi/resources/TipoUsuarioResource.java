@@ -1,4 +1,4 @@
-package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
+ package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +28,7 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 	@Autowired
 	private TipoUsuarioRepository repository;
 	
-	public ResponseEntity<List<TipoUsuario>> listAll() {
+	public ResponseEntity<List<TipoUsuario>> getAll() {
 		List<TipoUsuario> listaTiposUsuario = repository.findAll();
 		HttpStatus status = HttpStatus.OK;
 		if(listaTiposUsuario == null || listaTiposUsuario.isEmpty()) {
@@ -37,7 +37,7 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		return new ResponseEntity<List<TipoUsuario>>(listaTiposUsuario, status);
 	}
 
-	public ResponseEntity<Optional<TipoUsuario>> listOne(@PathVariable("id") Long id) {
+	public ResponseEntity<Optional<TipoUsuario>> getOne(@PathVariable("id") Long id) {
 		Optional<TipoUsuario> tipoUsuario = repository.findById(id);
 		HttpStatus status = HttpStatus.OK;
 		if(!tipoUsuario.isPresent()) {
@@ -46,7 +46,7 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		return new ResponseEntity<Optional<TipoUsuario>>(tipoUsuario, status);
 	}
 
-	public ResponseEntity<TipoUsuario> create(@RequestBody @Valid TipoUsuario entity) {
+	public ResponseEntity<TipoUsuario> post(@RequestBody @Valid TipoUsuario entity) {
 		repository.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
 		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
@@ -57,9 +57,19 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		return new ResponseEntity<>(null, header, status);
 	}
 
-	public ResponseEntity<TipoUsuario> update(@PathVariable("id") Long id, @RequestBody TipoUsuario entity) {
+	public ResponseEntity<TipoUsuario> patch(@PathVariable("id") Long id, @RequestBody TipoUsuario entity) {
 		entity.setId(id);
 		fillInBlankFields(entity);
+		repository.save(entity);
+		HttpStatus status = HttpStatus.ACCEPTED;
+		if(entity.getId() == null || entity.getId().longValue() <= 0) {
+			status = HttpStatus.NOT_MODIFIED;
+		}
+		return new ResponseEntity<>(null, status);
+	}
+	
+	public ResponseEntity<TipoUsuario> put(@PathVariable("id") Long id, @RequestBody TipoUsuario entity) {
+		entity.setId(id);
 		repository.save(entity);
 		HttpStatus status = HttpStatus.ACCEPTED;
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {

@@ -20,7 +20,7 @@ public class UnidadeAcademica {
 	@Id
 	@SequenceGenerator(name = "dp_seq_uni_academica", sequenceName="dp_seq_uni_academica")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private String id;
+	private Long id;
 	
 	@Column(length = 25)
 	private String nome;
@@ -39,10 +39,10 @@ public class UnidadeAcademica {
 	@OneToMany(mappedBy = "unidadeAcademica")
 	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNome() {

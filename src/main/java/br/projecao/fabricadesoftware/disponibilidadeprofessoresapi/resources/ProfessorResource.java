@@ -28,25 +28,25 @@ public class ProfessorResource implements Resource<Professor>{
 	@Autowired
 	private ProfessorRepository repository;
 	
-	public ResponseEntity<List<Professor>> listAll() {
-		List<Professor> listaProfessores = repository.findAll();
+	public ResponseEntity<List<Professor>> getAll() {
+		List<Professor> lista = repository.findAll();
 		HttpStatus status = HttpStatus.OK;
-		if(listaProfessores == null || listaProfessores.isEmpty()) {
+		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<Professor>>(listaProfessores, status);
+		return new ResponseEntity<List<Professor>>(lista, status);
 	}
 	
-	public ResponseEntity<Optional<Professor>> listOne(Long id) {
-		Optional<Professor> professor = repository.findById(id);
+	public ResponseEntity<Optional<Professor>> getOne(Long id) {
+		Optional<Professor> model = repository.findById(id);
 		HttpStatus status = HttpStatus.OK;
-		if(!professor.isPresent()) {
+		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<Professor>>(professor, status);
+		return new ResponseEntity<Optional<Professor>>(model, status);
 	}
 	
-	public ResponseEntity<Professor> create(@RequestBody @Valid Professor entity) {
+	public ResponseEntity<Professor> post(@RequestBody @Valid Professor entity) {
 		repository.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
 		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
@@ -58,9 +58,19 @@ public class ProfessorResource implements Resource<Professor>{
 		return new ResponseEntity<>(null, header, status);
 	}
 	
-	public ResponseEntity<Professor> update(@PathVariable("id") Long id, @RequestBody Professor entity) {
+	public ResponseEntity<Professor> patch(@PathVariable("id") Long id, @RequestBody Professor entity) {
 		entity.setId(id);
 		fillInBlankFields(entity);
+		repository.save(entity);
+		HttpStatus status = HttpStatus.ACCEPTED;
+		if(entity.getId() == null || entity.getId().longValue() <= 0) {
+			status = HttpStatus.NOT_MODIFIED;
+		}
+		return new ResponseEntity<>(null, status);
+	}
+	
+	public ResponseEntity<Professor> put(@PathVariable("id") Long id, @RequestBody Professor entity) {
+		entity.setId(id);
 		repository.save(entity);
 		HttpStatus status = HttpStatus.ACCEPTED;
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
