@@ -1,10 +1,18 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,20 +21,6 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models.Profes
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.ProfessorRepository;
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-
 @RestController
 @RequestMapping(value="/professor", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 public class ProfessorResource implements Resource<Professor>{
@@ -34,7 +28,6 @@ public class ProfessorResource implements Resource<Professor>{
 	@Autowired
 	private ProfessorRepository repository;
 	
-	@GetMapping
 	public ResponseEntity<List<Professor>> listAll() {
 		List<Professor> listaProfessores = repository.findAll();
 		HttpStatus status = HttpStatus.OK;
@@ -44,9 +37,7 @@ public class ProfessorResource implements Resource<Professor>{
 		return new ResponseEntity<List<Professor>>(listaProfessores, status);
 	}
 	
-	@GetMapping
-	@RequestMapping(value ="/{id}")
-	public ResponseEntity<Optional<Professor>> listOne(@PathVariable("id") Long id) {
+	public ResponseEntity<Optional<Professor>> listOne(Long id) {
 		Optional<Professor> professor = repository.findById(id);
 		HttpStatus status = HttpStatus.OK;
 		if(!professor.isPresent()) {
@@ -55,7 +46,6 @@ public class ProfessorResource implements Resource<Professor>{
 		return new ResponseEntity<Optional<Professor>>(professor, status);
 	}
 	
-	@PostMapping
 	public ResponseEntity<Professor> create(@RequestBody @Valid Professor entity) {
 		repository.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
@@ -68,7 +58,6 @@ public class ProfessorResource implements Resource<Professor>{
 		return new ResponseEntity<>(null, header, status);
 	}
 	
-	@PatchMapping(value="/{id}")
 	public ResponseEntity<Professor> update(@PathVariable("id") Long id, @RequestBody Professor entity) {
 		entity.setId(id);
 		fillInBlankFields(entity);
@@ -80,7 +69,6 @@ public class ProfessorResource implements Resource<Professor>{
 		return new ResponseEntity<>(null, status);
 	}
 	
-	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Professor> delete(@PathVariable("id") Long id) {
 		HttpStatus status = HttpStatus.NO_CONTENT;
 		if(repository.existsById(id)) {

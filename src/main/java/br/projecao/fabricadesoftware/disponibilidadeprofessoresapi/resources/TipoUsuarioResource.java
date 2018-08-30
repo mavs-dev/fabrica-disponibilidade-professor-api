@@ -12,11 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +28,6 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 	@Autowired
 	private TipoUsuarioRepository repository;
 	
-	@GetMapping
 	public ResponseEntity<List<TipoUsuario>> listAll() {
 		List<TipoUsuario> listaTiposUsuario = repository.findAll();
 		HttpStatus status = HttpStatus.OK;
@@ -42,8 +37,6 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		return new ResponseEntity<List<TipoUsuario>>(listaTiposUsuario, status);
 	}
 
-	@GetMapping
-	@RequestMapping(value= "/{id}")
 	public ResponseEntity<Optional<TipoUsuario>> listOne(@PathVariable("id") Long id) {
 		Optional<TipoUsuario> tipoUsuario = repository.findById(id);
 		HttpStatus status = HttpStatus.OK;
@@ -53,7 +46,6 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		return new ResponseEntity<Optional<TipoUsuario>>(tipoUsuario, status);
 	}
 
-	@PostMapping
 	public ResponseEntity<TipoUsuario> create(@RequestBody @Valid TipoUsuario entity) {
 		repository.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
@@ -65,7 +57,6 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		return new ResponseEntity<>(null, header, status);
 	}
 
-	@PatchMapping(value = "/{id}")
 	public ResponseEntity<TipoUsuario> update(@PathVariable("id") Long id, @RequestBody TipoUsuario entity) {
 		entity.setId(id);
 		fillInBlankFields(entity);
@@ -77,7 +68,6 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		return new ResponseEntity<>(null, status);
 	}
 
-	@DeleteMapping(value="/{id}")
 	public ResponseEntity<TipoUsuario> delete(@PathVariable("id") Long id) {
 		HttpStatus status = HttpStatus.NO_CONTENT;
 		if(repository.existsById(id)) {
