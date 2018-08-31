@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Turno;
 
 @Entity
@@ -29,7 +27,6 @@ public class DisciplinaMinistrada {
 	@Column(length = 10)
 	private Turno turno;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "unidade_academica")
 	private UnidadeAcademica unidadeAcademica;
@@ -40,7 +37,6 @@ public class DisciplinaMinistrada {
 	@Column(length = 1)
 	private Integer semestre;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "disciplina_min")
 	private Disciplina disciplinaMin;

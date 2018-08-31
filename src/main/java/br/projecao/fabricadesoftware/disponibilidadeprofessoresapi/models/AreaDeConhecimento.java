@@ -11,8 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table(name = "AREA_DE_CONHECIMENTO")
 public class AreaDeConhecimento {
@@ -25,7 +23,6 @@ public class AreaDeConhecimento {
 	@Column(length = 20, nullable = false)
 	private String descricao;
 	
-	@JsonBackReference
 	@OneToMany(mappedBy = "areaDeConhecimento")
 	private List<Disciplina> disciplinas;
 	

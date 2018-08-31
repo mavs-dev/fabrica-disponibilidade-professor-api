@@ -10,9 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-
 @Entity
 @Table(name = "DISCIPLINA_DE_INTERESSE")
 public class DisciplinaDeInteresse {
@@ -28,17 +25,14 @@ public class DisciplinaDeInteresse {
 	@Column(length = 1)
 	private Integer semestre;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "disciplina")
 	private Disciplina disciplina;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "unidade_academica")
 	private UnidadeAcademica unidadeAcademica;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "professor")
 	private Professor professor;

@@ -11,8 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table(name="UNIDADE_ACADEMICA")
 public class UnidadeAcademica {
@@ -31,11 +29,9 @@ public class UnidadeAcademica {
 	@Column(length = 150)
 	private String endereco;
 	
-	@JsonBackReference
 	@OneToMany(mappedBy = "unidadeAcademica")
 	private List<DisciplinaMinistrada> disciplinasMinistradas;
 	
-	@JsonBackReference
 	@OneToMany(mappedBy = "unidadeAcademica")
 	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
 	

@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "USUARIO")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -54,7 +52,6 @@ public abstract class Usuario {
 	@Column(length = 75, unique = true)
 	private String email;
 
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "tipo_usuario")
 	private TipoUsuario tipoUsuario;

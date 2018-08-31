@@ -11,8 +11,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table(name = "CURRICULO_LATTES")
 public class CurriculoLattes {
@@ -27,7 +25,6 @@ public class CurriculoLattes {
 	private LocalDate dataUltimaAtt;
 	private String ultimasPublicacoes;
 	
-	@JsonBackReference
 	@OneToOne(mappedBy = "curriculoLattes")
 	private Professor professor;
 	
