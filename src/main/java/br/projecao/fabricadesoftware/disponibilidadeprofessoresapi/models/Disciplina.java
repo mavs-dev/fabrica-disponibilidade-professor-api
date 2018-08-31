@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,10 +33,10 @@ public class Disciplina {
 	@JoinColumn(name = "area_de_conhecimento")
 	private AreaDeConhecimento areaDeConhecimento;
 	
-	@OneToMany(mappedBy = "disciplinaMin")
+	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
 	private List<DisciplinaMinistrada> disciplinasMinistradas;
 	
-	@OneToMany(mappedBy = "disciplina")
+	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
 	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
 
 	public Long getId() {

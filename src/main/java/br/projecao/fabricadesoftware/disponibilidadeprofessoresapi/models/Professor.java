@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -36,7 +37,7 @@ public class Professor extends Usuario {
 	private CurriculoLattes curriculoLattes;
 	
 	
-	@OneToMany(mappedBy = "professor")
+	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
 	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
 	
 	@OneToMany(mappedBy = "professor")

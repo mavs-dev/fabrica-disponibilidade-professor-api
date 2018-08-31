@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,10 +30,10 @@ public class UnidadeAcademica {
 	@Column(length = 150)
 	private String endereco;
 	
-	@OneToMany(mappedBy = "unidadeAcademica")
+	@OneToMany(mappedBy = "unidadeAcademica", fetch = FetchType.LAZY)
 	private List<DisciplinaMinistrada> disciplinasMinistradas;
 	
-	@OneToMany(mappedBy = "unidadeAcademica")
+	@OneToMany(mappedBy = "unidadeAcademica", fetch = FetchType.LAZY)
 	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
 	
 	public Long getId() {
