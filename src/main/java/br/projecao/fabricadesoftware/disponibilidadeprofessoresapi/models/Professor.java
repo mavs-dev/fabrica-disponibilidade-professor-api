@@ -5,10 +5,13 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name= "DADOS_PROFISSIONAIS")
@@ -36,10 +39,12 @@ public class Professor extends Usuario {
 	private CurriculoLattes curriculoLattes;
 	
 	
-	@OneToMany(mappedBy = "professor")
+	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"disciplinasDeInteresse"})
 	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
 	
 	@OneToMany(mappedBy = "professor")
+	@JsonIgnoreProperties(value= "professor")
 	private List<Titulacao> titulacoes;
 
 	public String getGraduacao() {

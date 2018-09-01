@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.lang.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.NivelAcesso;
 
@@ -35,7 +38,8 @@ public class TipoUsuario {
 	@Column(name = "nivel_acesso")
 	private NivelAcesso nivelAcesso;
 	
-	@OneToMany(mappedBy = "tipoUsuario")
+	@OneToMany(mappedBy = "tipoUsuario", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties(value= "tipoUsuario", allowSetters=true)
 	private List<Usuario> usuarios;
 	
 	public Long getId() {

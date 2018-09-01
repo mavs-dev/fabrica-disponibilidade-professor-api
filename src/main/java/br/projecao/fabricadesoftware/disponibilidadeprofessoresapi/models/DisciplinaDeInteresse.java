@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "DISCIPLINA_DE_INTERESSE")
 public class DisciplinaDeInteresse {
@@ -31,10 +33,12 @@ public class DisciplinaDeInteresse {
 	
 	@ManyToOne
 	@JoinColumn(name = "unidade_academica")
+	@JsonIgnoreProperties(value = "disciplinasDeInteresse", allowSetters = true)
 	private UnidadeAcademica unidadeAcademica;
 	
 	@ManyToOne
 	@JoinColumn(name = "professor")
+	@JsonIgnoreProperties(value = "disciplinasDeInteresse", allowSetters = true)
 	private Professor professor;
 
 	public Long getId() {

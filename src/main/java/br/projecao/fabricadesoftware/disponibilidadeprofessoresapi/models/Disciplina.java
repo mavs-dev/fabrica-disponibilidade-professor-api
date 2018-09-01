@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "DISCIPLINA")
@@ -30,12 +33,15 @@ public class Disciplina {
 	
 	@ManyToOne
 	@JoinColumn(name = "area_de_conhecimento")
+	@JsonIgnoreProperties(value = "disciplinas", allowSetters = true)
 	private AreaDeConhecimento areaDeConhecimento;
 	
-	@OneToMany(mappedBy = "disciplinaMin")
+	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"disciplinasMinistradas"})
 	private List<DisciplinaMinistrada> disciplinasMinistradas;
 	
-	@OneToMany(mappedBy = "disciplina")
+	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"disciplinasDeInteresse"})
 	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
 
 	public Long getId() {

@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "AREA_DE_CONHECIMENTO")
@@ -23,7 +26,8 @@ public class AreaDeConhecimento {
 	@Column(length = 20, nullable = false)
 	private String descricao;
 	
-	@OneToMany(mappedBy = "areaDeConhecimento")
+	@OneToMany(mappedBy = "areaDeConhecimento", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"disciplinas"})
 	private List<Disciplina> disciplinas;
 	
 	public Long getId() {

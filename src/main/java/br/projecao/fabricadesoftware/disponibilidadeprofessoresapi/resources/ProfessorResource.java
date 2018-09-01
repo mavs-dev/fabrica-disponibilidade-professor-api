@@ -3,6 +3,7 @@ package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.int
 public class ProfessorResource implements Resource<Professor>{
 	
 	@Autowired
+	HttpServletRequest servlet;
+	
+	@Autowired
 	private ProfessorRepository repository;
 	
 	public ResponseEntity<List<Professor>> getAll() {
@@ -47,14 +51,16 @@ public class ProfessorResource implements Resource<Professor>{
 	}
 	
 	public ResponseEntity<Professor> post(@RequestBody @Valid Professor entity) {
-		repository.save(entity);
-		HttpStatus status = HttpStatus.CREATED;
 		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
-		if(entity.getId() == null || entity.getId().longValue() <= 0) {
+		HttpStatus status = HttpStatus.CREATED;
+		try {
+			repository.save(entity);
+		}catch(Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
-			header.set(HttpHeaders.LOCATION, entity.getId().toString());
+			Professor professor = repository.findByEmail(entity.getEmail());
+			header.set(HttpHeaders.LINK, servlet.getRequestURL()+"/"+professor.getId().toString());
+			header.set(HttpHeaders.WARNING, e.getMessage());
 		}
-		
 		return new ResponseEntity<>(null, header, status);
 	}
 	

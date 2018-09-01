@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Turno;
 
 @Entity
@@ -29,6 +31,7 @@ public class DisciplinaMinistrada {
 	
 	@ManyToOne
 	@JoinColumn(name = "unidade_academica")
+	@JsonIgnoreProperties(value = "disciplinasMinistradas", allowSetters = true)
 	private UnidadeAcademica unidadeAcademica;
 	
 	@Column(length = 4)
@@ -39,7 +42,8 @@ public class DisciplinaMinistrada {
 	
 	@ManyToOne
 	@JoinColumn(name = "disciplina_min")
-	private Disciplina disciplinaMin;
+	@JsonIgnoreProperties(value = "disciplinasMinistradas", allowSetters = true)
+	private Disciplina disciplina;
 	
 	public Long getId() {
 		return id;
@@ -71,11 +75,11 @@ public class DisciplinaMinistrada {
 	public void setSemestre(Integer semestre) {
 		this.semestre = semestre;
 	}
-	public Disciplina getDisciplinaMin() {
-		return disciplinaMin;
+	public Disciplina getDisciplina() {
+		return disciplina;
 	}
-	public void setDisciplinaMin(Disciplina disciplinaMin) {
-		this.disciplinaMin = disciplinaMin;
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
 	}
 	
 }
