@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "AREA_DE_CONHECIMENTO")
 public class AreaDeConhecimento {
@@ -25,6 +27,7 @@ public class AreaDeConhecimento {
 	private String descricao;
 	
 	@OneToMany(mappedBy = "areaDeConhecimento", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"disciplinas"})
 	private List<Disciplina> disciplinas;
 	
 	public Long getId() {

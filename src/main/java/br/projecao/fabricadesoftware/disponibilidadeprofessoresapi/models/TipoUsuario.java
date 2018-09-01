@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import org.springframework.lang.NonNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.NivelAcesso;
 
 @Entity
@@ -37,6 +39,7 @@ public class TipoUsuario {
 	private NivelAcesso nivelAcesso;
 	
 	@OneToMany(mappedBy = "tipoUsuario", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties(value= "tipoUsuario", allowSetters=true)
 	private List<Usuario> usuarios;
 	
 	public Long getId() {

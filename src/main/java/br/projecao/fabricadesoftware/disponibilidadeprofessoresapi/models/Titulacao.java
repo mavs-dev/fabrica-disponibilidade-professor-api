@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "TITULACAO")
 public class Titulacao {
@@ -31,6 +33,7 @@ public class Titulacao {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "professor")
+	@JsonIgnoreProperties(value= "titulacoes", allowSetters=true)
 	private Professor professor;
 
 	public Long getId() {

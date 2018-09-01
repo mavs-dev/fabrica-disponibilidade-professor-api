@@ -12,9 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "USUARIO")
 @Inheritance(strategy = InheritanceType.JOINED)
+
 public abstract class Usuario {
 
 	@Id
@@ -51,9 +54,13 @@ public abstract class Usuario {
 
 	@Column(length = 75, unique = true)
 	private String email;
+	
+	@Column(length = 255)
+	private String senha;
 
 	@ManyToOne
 	@JoinColumn(name = "tipo_usuario")
+	@JsonIgnoreProperties(value= "usuarios", allowSetters=true)
 	private TipoUsuario tipoUsuario;
 
 	public Long getId() {
@@ -142,6 +149,14 @@ public abstract class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public TipoUsuario getTipoUsuario() {

@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "CURRICULO_LATTES")
 public class CurriculoLattes {
@@ -26,6 +28,7 @@ public class CurriculoLattes {
 	private String ultimasPublicacoes;
 	
 	@OneToOne(mappedBy = "curriculoLattes")
+	@JsonIgnoreProperties({"professor"})
 	private Professor professor;
 	
 	public Long getId() {

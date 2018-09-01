@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="UNIDADE_ACADEMICA")
 public class UnidadeAcademica {
@@ -31,9 +33,11 @@ public class UnidadeAcademica {
 	private String endereco;
 	
 	@OneToMany(mappedBy = "unidadeAcademica", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"disciplinasMinistradas"})
 	private List<DisciplinaMinistrada> disciplinasMinistradas;
 	
 	@OneToMany(mappedBy = "unidadeAcademica", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"disciplinasDeInteresse"})
 	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
 	
 	public Long getId() {

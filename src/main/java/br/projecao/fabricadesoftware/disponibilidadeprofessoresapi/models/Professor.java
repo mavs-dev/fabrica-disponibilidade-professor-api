@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name= "DADOS_PROFISSIONAIS")
 public class Professor extends Usuario {
@@ -38,9 +40,11 @@ public class Professor extends Usuario {
 	
 	
 	@OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"disciplinasDeInteresse"})
 	private List<DisciplinaDeInteresse> disciplinasDeInteresse;
 	
 	@OneToMany(mappedBy = "professor")
+	@JsonIgnoreProperties(value= "professor")
 	private List<Titulacao> titulacoes;
 
 	public String getGraduacao() {
