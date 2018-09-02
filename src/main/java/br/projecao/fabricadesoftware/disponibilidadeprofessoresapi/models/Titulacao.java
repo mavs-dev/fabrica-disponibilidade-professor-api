@@ -24,7 +24,7 @@ public class Titulacao {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
-	@Column(length = 45)
+	@Column(length = 45, unique = true)
 	private String descricao;
 
 	private Boolean titulacaoEmAndamento;

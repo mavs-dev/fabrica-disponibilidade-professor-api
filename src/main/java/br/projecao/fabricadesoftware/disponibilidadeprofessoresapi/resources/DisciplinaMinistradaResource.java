@@ -1,6 +1,8 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -10,8 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +34,7 @@ public class DisciplinaMinistradaResource implements Resource<DisciplinaMinistra
 		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<DisciplinaMinistrada>>(lista, status);
+		return new ResponseEntity<List<DisciplinaMinistrada>>(lista, getHeader(),status);
 	}
 	
 	public ResponseEntity<Optional<DisciplinaMinistrada>> getOne(Long id) {
@@ -43,19 +43,20 @@ public class DisciplinaMinistradaResource implements Resource<DisciplinaMinistra
 		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<DisciplinaMinistrada>>(model, status);
+		return new ResponseEntity<Optional<DisciplinaMinistrada>>(model, getHeader(), status);
 	}
 	
 	public ResponseEntity<DisciplinaMinistrada> post(@RequestBody @Valid DisciplinaMinistrada entity) {
-		repository.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
-		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
-		if(entity.getId() == null || entity.getId().longValue() <= 0) {
+		Map<String, String> contents = new HashMap<>();
+		try {
+			repository.save(entity);
+		} catch (Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
-			header.set(HttpHeaders.LOCATION, entity.getId().toString());
+			contents.put(HttpHeaders.WARNING, e.getMessage());
 		}
 		
-		return new ResponseEntity<>(null, header, status);
+		return new ResponseEntity<>(null, getHeader(contents), status);
 	}
 	
 	public ResponseEntity<DisciplinaMinistrada> patch(@PathVariable("id") Long id, @RequestBody DisciplinaMinistrada entity) {
@@ -66,7 +67,7 @@ public class DisciplinaMinistradaResource implements Resource<DisciplinaMinistra
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public ResponseEntity<DisciplinaMinistrada> put(@PathVariable("id") Long id, @RequestBody DisciplinaMinistrada entity) {
@@ -76,7 +77,7 @@ public class DisciplinaMinistradaResource implements Resource<DisciplinaMinistra
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public ResponseEntity<DisciplinaMinistrada> delete(@PathVariable("id") Long id) {
@@ -86,7 +87,7 @@ public class DisciplinaMinistradaResource implements Resource<DisciplinaMinistra
 		}else {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public void fillInBlankFields(DisciplinaMinistrada entity) {

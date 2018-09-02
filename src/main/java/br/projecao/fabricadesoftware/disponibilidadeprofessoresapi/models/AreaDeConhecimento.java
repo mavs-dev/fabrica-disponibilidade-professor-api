@@ -23,7 +23,7 @@ public class AreaDeConhecimento {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@Column(length = 20, nullable = false)
+	@Column(length = 20, nullable = false, unique = true)
 	private String descricao;
 	
 	@OneToMany(mappedBy = "areaDeConhecimento", fetch = FetchType.LAZY)

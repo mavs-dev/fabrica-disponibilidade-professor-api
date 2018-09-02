@@ -1,6 +1,8 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +23,7 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.Pr
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
 
 @RestController
-@RequestMapping(value="/professor", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/professor", produces=MediaType.APPLICATION_JSON_VALUE)
 public class ProfessorResource implements Resource<Professor>{
 	
 	@Autowired
@@ -38,7 +38,7 @@ public class ProfessorResource implements Resource<Professor>{
 		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<Professor>>(lista, status);
+		return new ResponseEntity<List<Professor>>(lista, getHeader(), status);
 	}
 	
 	public ResponseEntity<Optional<Professor>> getOne(Long id) {
@@ -47,21 +47,21 @@ public class ProfessorResource implements Resource<Professor>{
 		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<Professor>>(model, status);
+		return new ResponseEntity<Optional<Professor>>(model, getHeader(), status);
 	}
 	
 	public ResponseEntity<Professor> post(@RequestBody @Valid Professor entity) {
-		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+		Map<String, String> contents = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;
 		try {
 			repository.save(entity);
 		}catch(Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
 			Professor professor = repository.findByEmail(entity.getEmail());
-			header.set(HttpHeaders.LINK, servlet.getRequestURL()+"/"+professor.getId().toString());
-			header.set(HttpHeaders.WARNING, e.getMessage());
+			contents.put(HttpHeaders.LINK, servlet.getRequestURL()+"/"+professor.getId().toString());
+			contents.put(HttpHeaders.WARNING, e.getMessage());
 		}
-		return new ResponseEntity<>(null, header, status);
+		return new ResponseEntity<>(null, getHeader(contents), status);
 	}
 	
 	public ResponseEntity<Professor> patch(@PathVariable("id") Long id, @RequestBody Professor entity) {
@@ -72,7 +72,7 @@ public class ProfessorResource implements Resource<Professor>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public ResponseEntity<Professor> put(@PathVariable("id") Long id, @RequestBody Professor entity) {
@@ -82,7 +82,7 @@ public class ProfessorResource implements Resource<Professor>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public ResponseEntity<Professor> delete(@PathVariable("id") Long id) {
@@ -92,7 +92,7 @@ public class ProfessorResource implements Resource<Professor>{
 		}else {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public void fillInBlankFields(Professor entity) {

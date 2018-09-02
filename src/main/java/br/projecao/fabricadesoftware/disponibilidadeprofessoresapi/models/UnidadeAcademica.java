@@ -23,7 +23,7 @@ public class UnidadeAcademica {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@Column(length = 25)
+	@Column(length = 25,  unique= true)
 	private String nome;
 	
 	@Column(length = 60)

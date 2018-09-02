@@ -26,22 +26,22 @@ public class DisciplinaMinistrada {
 	private Long id;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(length = 10)
+	@Column(length = 10, unique = true)
 	private Turno turno;
 	
 	@ManyToOne
-	@JoinColumn(name = "unidade_academica")
+	@JoinColumn(name = "unidade_academica", unique = true)
 	@JsonIgnoreProperties(value = "disciplinasMinistradas", allowSetters = true)
 	private UnidadeAcademica unidadeAcademica;
 	
-	@Column(length = 4)
+	@Column(length = 4, unique = true)
 	private Integer ano;
 	
-	@Column(length = 1)
+	@Column(length = 1, unique = true)
 	private Integer semestre;
 	
 	@ManyToOne
-	@JoinColumn(name = "disciplina_min")
+	@JoinColumn(name = "disciplina", unique = true)
 	@JsonIgnoreProperties(value = "disciplinasMinistradas", allowSetters = true)
 	private Disciplina disciplina;
 	

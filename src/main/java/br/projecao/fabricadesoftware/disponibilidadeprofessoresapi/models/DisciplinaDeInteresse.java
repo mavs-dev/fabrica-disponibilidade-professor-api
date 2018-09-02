@@ -21,23 +21,23 @@ public class DisciplinaDeInteresse {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@Column(length = 4)
+	@Column(length = 4, unique = true)
 	private Integer ano;
 	
-	@Column(length = 1)
+	@Column(length = 1, unique = true)
 	private Integer semestre;
 	
 	@ManyToOne
-	@JoinColumn(name = "disciplina")
+	@JoinColumn(name = "disciplina", unique = true)
 	private Disciplina disciplina;
 	
 	@ManyToOne
-	@JoinColumn(name = "unidade_academica")
+	@JoinColumn(name = "unidade_academica", unique = true)
 	@JsonIgnoreProperties(value = "disciplinasDeInteresse", allowSetters = true)
 	private UnidadeAcademica unidadeAcademica;
 	
 	@ManyToOne
-	@JoinColumn(name = "professor")
+	@JoinColumn(name = "professor", unique = true)
 	@JsonIgnoreProperties(value = "disciplinasDeInteresse", allowSetters = true)
 	private Professor professor;
 

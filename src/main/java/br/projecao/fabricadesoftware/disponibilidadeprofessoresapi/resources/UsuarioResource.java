@@ -34,7 +34,7 @@ public class UsuarioResource implements Resource<Usuario>{
 		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<Usuario>>(lista, status);
+		return new ResponseEntity<List<Usuario>>(lista, getHeader(), status);
 	}
 	
 	public ResponseEntity<Optional<Usuario>> getOne(Long id) {
@@ -43,16 +43,17 @@ public class UsuarioResource implements Resource<Usuario>{
 		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<Usuario>>(model, status);
+		return new ResponseEntity<Optional<Usuario>>(model, getHeader(), status);
 	}
 	
 	public ResponseEntity<Usuario> post(@RequestBody @Valid Usuario entity) {
-		repository.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
 		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
-		if(entity.getId() == null || entity.getId().longValue() <= 0) {
+		try {
+			repository.save(entity);
+		} catch (Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
-			header.set(HttpHeaders.LOCATION, entity.getId().toString());
+			header.set(HttpHeaders.WARNING, e.getMessage());
 		}
 		
 		return new ResponseEntity<>(null, header, status);
@@ -66,7 +67,7 @@ public class UsuarioResource implements Resource<Usuario>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public ResponseEntity<Usuario> put(@PathVariable("id") Long id, @RequestBody Usuario entity) {
@@ -76,7 +77,7 @@ public class UsuarioResource implements Resource<Usuario>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public ResponseEntity<Usuario> delete(@PathVariable("id") Long id) {
@@ -86,7 +87,7 @@ public class UsuarioResource implements Resource<Usuario>{
 		}else {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public void fillInBlankFields(Usuario entity) {

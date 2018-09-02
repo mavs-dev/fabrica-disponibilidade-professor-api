@@ -1,6 +1,8 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -10,8 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +34,7 @@ public class DisciplinaResource implements Resource<Disciplina>{
 		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<Disciplina>>(lista, status);
+		return new ResponseEntity<List<Disciplina>>(lista, getHeader(), status);
 	}
 	
 	public ResponseEntity<Optional<Disciplina>> getOne(Long id) {
@@ -43,19 +43,22 @@ public class DisciplinaResource implements Resource<Disciplina>{
 		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<Disciplina>>(model, status);
+		return new ResponseEntity<Optional<Disciplina>>(model, getHeader(), status);
 	}
 	
 	public ResponseEntity<Disciplina> post(@RequestBody @Valid Disciplina entity) {
-		repository.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
-		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
-		if(entity.getId() == null || entity.getId().longValue() <= 0) {
+		Map<String, String> contents = new HashMap<>();
+		try {
+			repository.save(entity);
+		} catch (Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
-			header.set(HttpHeaders.LOCATION, entity.getId().toString());
+			Disciplina disciplina = repository.findByDescricao(entity.getDescricao());
+			contents.put(HttpHeaders.LINK, disciplina.getId().toString());
+			contents.put(HttpHeaders.WARNING, e.getMessage());
 		}
 		
-		return new ResponseEntity<>(null, header, status);
+		return new ResponseEntity<>(null, getHeader(contents), status);
 	}
 	
 	public ResponseEntity<Disciplina> patch(@PathVariable("id") Long id, @RequestBody Disciplina entity) {
@@ -66,7 +69,7 @@ public class DisciplinaResource implements Resource<Disciplina>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public ResponseEntity<Disciplina> put(@PathVariable("id") Long id, @RequestBody Disciplina entity) {
@@ -76,7 +79,7 @@ public class DisciplinaResource implements Resource<Disciplina>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public ResponseEntity<Disciplina> delete(@PathVariable("id") Long id) {
@@ -86,7 +89,7 @@ public class DisciplinaResource implements Resource<Disciplina>{
 		}else {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public void fillInBlankFields(Disciplina entity) {
