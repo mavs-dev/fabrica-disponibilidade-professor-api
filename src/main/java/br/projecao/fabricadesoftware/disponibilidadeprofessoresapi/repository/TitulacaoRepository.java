@@ -6,4 +6,5 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models.Titula
 
 public interface TitulacaoRepository extends JpaRepository<Titulacao, Long>{
 
+	public Titulacao findByDescricao(String descricao);
 }

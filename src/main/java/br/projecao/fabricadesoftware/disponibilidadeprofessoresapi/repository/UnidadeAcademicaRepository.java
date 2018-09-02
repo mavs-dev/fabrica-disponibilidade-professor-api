@@ -6,4 +6,5 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models.Unidad
 
 public interface UnidadeAcademicaRepository extends JpaRepository<UnidadeAcademica, Long> {
 
+	public UnidadeAcademica findByNome(String nome);
 }

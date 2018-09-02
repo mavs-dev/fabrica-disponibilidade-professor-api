@@ -2,9 +2,12 @@ package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.in
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -32,5 +35,23 @@ public interface Resource<Model> {
 	
 	void fillInBlankFields(Model entity);
 	void merge(Model newEntity, Model oldEntity);
+	
+	default MultiValueMap<String, String> getHeader(Map<String, String> contents){
+		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+		header.set("Access-Control-Allow-Origin", "*");
+		header.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+		if(contents != null) {
+			contents.forEach((key,value) -> header.set(key, value));
+		}
+		return header;
+	}
+	
+	default MultiValueMap<String, String> getHeader(){
+		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+		header.set("Access-Control-Allow-Origin", "*");
+		header.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+		return header;
+	}
+	
 	
 }

@@ -1,6 +1,8 @@
  package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -10,8 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +34,7 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		if(listaTiposUsuario == null || listaTiposUsuario.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<TipoUsuario>>(listaTiposUsuario, status);
+		return new ResponseEntity<List<TipoUsuario>>(listaTiposUsuario, getHeader(), status);
 	}
 
 	public ResponseEntity<Optional<TipoUsuario>> getOne(@PathVariable("id") Long id) {
@@ -43,18 +43,22 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		if(!tipoUsuario.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<TipoUsuario>>(tipoUsuario, status);
+		return new ResponseEntity<Optional<TipoUsuario>>(tipoUsuario, getHeader(), status);
 	}
 
 	public ResponseEntity<TipoUsuario> post(@RequestBody @Valid TipoUsuario entity) {
-		repository.save(entity);
 		HttpStatus status = HttpStatus.CREATED;
-		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
-		if(entity.getId() == null || entity.getId().longValue() <= 0) {
+		Map<String, String> contents = new HashMap<>();
+		try {
+			repository.save(entity);
+		} catch (Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
-			header.set(HttpHeaders.LOCATION, entity.getId().toString());
+			TipoUsuario tipoUsuario = repository.findByDescricao(entity.getDescricao());
+			contents.put(HttpHeaders.LOCATION, tipoUsuario.getId().toString());
+			contents.put(HttpHeaders.WARNING, e.getMessage());
 		}
-		return new ResponseEntity<>(null, header, status);
+		
+		return new ResponseEntity<>(null, getHeader(contents), status);
 	}
 
 	public ResponseEntity<TipoUsuario> patch(@PathVariable("id") Long id, @RequestBody TipoUsuario entity) {
@@ -65,7 +69,7 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 	
 	public ResponseEntity<TipoUsuario> put(@PathVariable("id") Long id, @RequestBody TipoUsuario entity) {
@@ -75,7 +79,7 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 
 	public ResponseEntity<TipoUsuario> delete(@PathVariable("id") Long id) {
@@ -85,7 +89,7 @@ public class TipoUsuarioResource implements Resource<TipoUsuario>{
 		}else {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(null, getHeader(), status);
 	}
 
 	@Override

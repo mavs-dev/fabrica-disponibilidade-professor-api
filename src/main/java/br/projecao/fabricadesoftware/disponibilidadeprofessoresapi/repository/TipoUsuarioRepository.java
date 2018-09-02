@@ -6,4 +6,5 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models.TipoUs
 
 public interface TipoUsuarioRepository extends JpaRepository<TipoUsuario, Long>{
 
+	public TipoUsuario findByDescricao(String descricao);
 }

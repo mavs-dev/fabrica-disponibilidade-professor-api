@@ -6,4 +6,5 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models.AreaDe
 
 public interface AreaDeConhecimentoRepository extends JpaRepository<AreaDeConhecimento, Long> {
 
+	public AreaDeConhecimento findByDescricao(String descricao);
 }
