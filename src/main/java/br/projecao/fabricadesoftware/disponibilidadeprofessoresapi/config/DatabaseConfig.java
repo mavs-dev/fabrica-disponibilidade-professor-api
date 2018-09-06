@@ -35,7 +35,6 @@ public class DatabaseConfig {
 	 
 	      JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 	      ((HibernateJpaVendorAdapter)vendorAdapter).setShowSql(SHOW_SQL.equalsIgnoreCase("true"));
-	      ((HibernateJpaVendorAdapter)vendorAdapter).setGenerateDdl(DDL_AUTO.equalsIgnoreCase("create") || DDL_AUTO.equalsIgnoreCase("create-drop"));
 	      em.setJpaVendorAdapter(vendorAdapter);
 	      em.setJpaProperties(additionalProperties());
 	 
@@ -68,18 +67,12 @@ public class DatabaseConfig {
 	 
 	   public Properties additionalProperties() {
 	       Properties properties = new Properties();
-	       properties.setProperty("spring.jpa.database", "POSTGRESQL");
-	       properties.setProperty("spring.jpa.hibernate.ddl-auto", DDL_AUTO);
-	       properties.setProperty("spring.jpa.properties.hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-	       properties.setProperty("spring.jpa.show-sql", SHOW_SQL);
-	       properties.setProperty("spring.datasource.validationQuery", "SELECT 1");
-	       properties.put("spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults", "false");
-	       properties.put("hibernate.jdbc.lob.non_contextual_creation", "true");
 	       
 	       properties.setProperty("hibernate.database", "POSTGRESQL");
-	       properties.setProperty("hibernate.ddl-auto", DDL_AUTO);
+	       properties.setProperty("hibernate.hbm2ddl.auto", DDL_AUTO);
 	       properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-	       properties.setProperty("hibernate.show-sql", SHOW_SQL);
+	       properties.setProperty("hibernate.show_sql", SHOW_SQL);
+	       properties.setProperty("hibernate.format_sql", SHOW_SQL);
 	       properties.setProperty("hibernate.validationQuery", "SELECT 1");
 	       properties.put("hibernate.temp.use_jdbc_metadata_defaults", "false");
 	       properties.put("hibernate.jdbc.lob.non_contextual_creation", "true");

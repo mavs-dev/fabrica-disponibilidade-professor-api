@@ -11,7 +11,7 @@ public class DisponibilidadeProfessoresApiApplication {
 	private static final String INPUT_HOST = "-h=";
 	private static final String INPUT_PORT = "-p=";
 	private static final String INPUT_USER = "-u=";
-	private static final String INPUT_PASS = "-pw=";
+	private static final String INPUT_PASS = "-s=";
 	private static final String INPUT_DDL_AUTO = "-ddl=";
 	private static final String INPUT_SHOW_SQL = "-show-sql=";
 
