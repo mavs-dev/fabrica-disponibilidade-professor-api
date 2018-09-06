@@ -1,14 +1,11 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +31,7 @@ public class TitulacaoResource implements Resource<Titulacao>{
 		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<Titulacao>>(lista, getHeader(), status);
+		return new ResponseEntity<List<Titulacao>>(lista, status);
 	}
 	
 	public ResponseEntity<Optional<Titulacao>> getOne(Long id) {
@@ -43,22 +40,18 @@ public class TitulacaoResource implements Resource<Titulacao>{
 		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<Titulacao>>(model, getHeader(), status);
+		return new ResponseEntity<Optional<Titulacao>>(model, status);
 	}
 	
 	public ResponseEntity<Titulacao> post(@RequestBody @Valid Titulacao entity) {
 		HttpStatus status = HttpStatus.CREATED;
-		Map<String, String> contents = new HashMap<>();
 		try {
 			repository.save(entity);
 		} catch (Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
-			Titulacao titulacao = repository.findByDescricao(entity.getDescricao());
-			contents.put(HttpHeaders.LINK, titulacao.getId().toString());
-			contents.put(HttpHeaders.WARNING, e.getMessage());
 		}
 		
-		return new ResponseEntity<>(null, getHeader(contents), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Titulacao> patch(@PathVariable("id") Long id, @RequestBody Titulacao entity) {
@@ -69,7 +62,7 @@ public class TitulacaoResource implements Resource<Titulacao>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Titulacao> put(@PathVariable("id") Long id, @RequestBody Titulacao entity) {
@@ -79,7 +72,7 @@ public class TitulacaoResource implements Resource<Titulacao>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Titulacao> delete(@PathVariable("id") Long id) {
@@ -89,7 +82,7 @@ public class TitulacaoResource implements Resource<Titulacao>{
 		}else {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public void fillInBlankFields(Titulacao entity) {

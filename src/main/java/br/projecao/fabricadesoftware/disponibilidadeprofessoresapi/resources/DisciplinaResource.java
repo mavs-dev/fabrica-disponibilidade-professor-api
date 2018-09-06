@@ -1,14 +1,11 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +31,7 @@ public class DisciplinaResource implements Resource<Disciplina>{
 		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<Disciplina>>(lista, getHeader(), status);
+		return new ResponseEntity<List<Disciplina>>(lista, status);
 	}
 	
 	public ResponseEntity<Optional<Disciplina>> getOne(Long id) {
@@ -43,22 +40,18 @@ public class DisciplinaResource implements Resource<Disciplina>{
 		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<Disciplina>>(model, getHeader(), status);
+		return new ResponseEntity<Optional<Disciplina>>(model, status);
 	}
 	
 	public ResponseEntity<Disciplina> post(@RequestBody @Valid Disciplina entity) {
 		HttpStatus status = HttpStatus.CREATED;
-		Map<String, String> contents = new HashMap<>();
 		try {
 			repository.save(entity);
 		} catch (Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
-			Disciplina disciplina = repository.findByDescricao(entity.getDescricao());
-			contents.put(HttpHeaders.LINK, disciplina.getId().toString());
-			contents.put(HttpHeaders.WARNING, e.getMessage());
 		}
 		
-		return new ResponseEntity<>(null, getHeader(contents), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Disciplina> patch(@PathVariable("id") Long id, @RequestBody Disciplina entity) {
@@ -69,7 +62,7 @@ public class DisciplinaResource implements Resource<Disciplina>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Disciplina> put(@PathVariable("id") Long id, @RequestBody Disciplina entity) {
@@ -79,7 +72,7 @@ public class DisciplinaResource implements Resource<Disciplina>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Disciplina> delete(@PathVariable("id") Long id) {
@@ -89,7 +82,7 @@ public class DisciplinaResource implements Resource<Disciplina>{
 		}else {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public void fillInBlankFields(Disciplina entity) {

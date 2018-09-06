@@ -1,15 +1,12 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +35,7 @@ public class ProfessorResource implements Resource<Professor>{
 		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<Professor>>(lista, getHeader(), status);
+		return new ResponseEntity<List<Professor>>(lista, status);
 	}
 	
 	public ResponseEntity<Optional<Professor>> getOne(Long id) {
@@ -47,21 +44,18 @@ public class ProfessorResource implements Resource<Professor>{
 		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<Professor>>(model, getHeader(), status);
+		return new ResponseEntity<Optional<Professor>>(model, status);
 	}
 	
 	public ResponseEntity<Professor> post(@RequestBody @Valid Professor entity) {
-		Map<String, String> contents = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;
 		try {
 			repository.save(entity);
 		}catch(Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
-			Professor professor = repository.findByEmail(entity.getEmail());
-			contents.put(HttpHeaders.LINK, servlet.getRequestURL()+"/"+professor.getId().toString());
-			contents.put(HttpHeaders.WARNING, e.getMessage());
 		}
-		return new ResponseEntity<>(null, getHeader(contents), status);
+		
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Professor> patch(@PathVariable("id") Long id, @RequestBody Professor entity) {
@@ -72,7 +66,7 @@ public class ProfessorResource implements Resource<Professor>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Professor> put(@PathVariable("id") Long id, @RequestBody Professor entity) {
@@ -82,7 +76,7 @@ public class ProfessorResource implements Resource<Professor>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Professor> delete(@PathVariable("id") Long id) {
@@ -92,7 +86,7 @@ public class ProfessorResource implements Resource<Professor>{
 		}else {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public void fillInBlankFields(Professor entity) {

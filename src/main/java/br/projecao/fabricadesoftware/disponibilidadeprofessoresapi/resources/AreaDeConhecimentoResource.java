@@ -1,14 +1,11 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +34,7 @@ public class AreaDeConhecimentoResource implements Resource<AreaDeConhecimento>{
 		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<AreaDeConhecimento>>(lista, getHeader(), status);
+		return new ResponseEntity<List<AreaDeConhecimento>>(lista, status);
 	}
 
 	public ResponseEntity<Optional<AreaDeConhecimento>> getOne(@PathVariable("id") Long id) {
@@ -46,22 +43,18 @@ public class AreaDeConhecimentoResource implements Resource<AreaDeConhecimento>{
 		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<AreaDeConhecimento>>(model, getHeader(), status);
+		return new ResponseEntity<Optional<AreaDeConhecimento>>(model, status);
 	}
 
 	public ResponseEntity<AreaDeConhecimento> post(@RequestBody AreaDeConhecimento entity) {
 		HttpStatus status = HttpStatus.CREATED;
-		Map<String, String> contents = new HashMap<>();
 		try {
 			repository.save(entity);
 		}catch(Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
-			AreaDeConhecimento areaDeConhecimento = repository.findByDescricao(entity.getDescricao());
-			contents.put(HttpHeaders.LOCATION, servlet.getRequestURL()+"/"+areaDeConhecimento.getId().toString());
-			contents.put(HttpHeaders.WARNING, e.getMessage());
 		}
 		
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 
 	public ResponseEntity<AreaDeConhecimento> patch(@PathVariable("id") Long id, @RequestBody AreaDeConhecimento entity) {
@@ -72,7 +65,7 @@ public class AreaDeConhecimentoResource implements Resource<AreaDeConhecimento>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<AreaDeConhecimento> put(@PathVariable("id") Long id, @RequestBody AreaDeConhecimento entity) {
@@ -82,7 +75,7 @@ public class AreaDeConhecimentoResource implements Resource<AreaDeConhecimento>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 
 	public ResponseEntity<AreaDeConhecimento> delete(@PathVariable("id") Long id) {

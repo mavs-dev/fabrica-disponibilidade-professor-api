@@ -6,12 +6,9 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +31,7 @@ public class UsuarioResource implements Resource<Usuario>{
 		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<Usuario>>(lista, getHeader(), status);
+		return new ResponseEntity<List<Usuario>>(lista, status);
 	}
 	
 	public ResponseEntity<Optional<Usuario>> getOne(Long id) {
@@ -43,20 +40,18 @@ public class UsuarioResource implements Resource<Usuario>{
 		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<Usuario>>(model, getHeader(), status);
+		return new ResponseEntity<Optional<Usuario>>(model, status);
 	}
 	
 	public ResponseEntity<Usuario> post(@RequestBody @Valid Usuario entity) {
 		HttpStatus status = HttpStatus.CREATED;
-		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
 		try {
 			repository.save(entity);
 		} catch (Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
-			header.set(HttpHeaders.WARNING, e.getMessage());
 		}
 		
-		return new ResponseEntity<>(null, header, status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Usuario> patch(@PathVariable("id") Long id, @RequestBody Usuario entity) {
@@ -67,7 +62,7 @@ public class UsuarioResource implements Resource<Usuario>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Usuario> put(@PathVariable("id") Long id, @RequestBody Usuario entity) {
@@ -77,7 +72,7 @@ public class UsuarioResource implements Resource<Usuario>{
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<Usuario> delete(@PathVariable("id") Long id) {
@@ -87,7 +82,7 @@ public class UsuarioResource implements Resource<Usuario>{
 		}else {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public void fillInBlankFields(Usuario entity) {

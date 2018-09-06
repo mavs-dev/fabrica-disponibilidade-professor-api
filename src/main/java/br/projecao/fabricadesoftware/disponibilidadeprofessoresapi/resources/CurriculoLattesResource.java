@@ -1,14 +1,11 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +31,7 @@ public class CurriculoLattesResource implements Resource<CurriculoLattes> {
 		if(lista == null || lista.isEmpty()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<List<CurriculoLattes>>(lista, getHeader(), status);
+		return new ResponseEntity<List<CurriculoLattes>>(lista, status);
 	}
 	
 	public ResponseEntity<Optional<CurriculoLattes>> getOne(Long id) {
@@ -43,22 +40,18 @@ public class CurriculoLattesResource implements Resource<CurriculoLattes> {
 		if(!model.isPresent()) {
 			status = HttpStatus.NO_CONTENT;
 		}
-		return new ResponseEntity<Optional<CurriculoLattes>>(model, getHeader(), status);
+		return new ResponseEntity<Optional<CurriculoLattes>>(model, status);
 	}
 	
 	public ResponseEntity<CurriculoLattes> post(@RequestBody @Valid CurriculoLattes entity) {
 		HttpStatus status = HttpStatus.CREATED;
-		Map<String, String> contents = new HashMap<>();
 		try {
 			repository.save(entity);
 		} catch (Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
-			CurriculoLattes curriculo = repository.findByProfessor(entity.getProfessor());
-			contents.put(HttpHeaders.LOCATION, curriculo.getId().toString());
-			contents.put(HttpHeaders.WARNING, e.getMessage());
 		}
 		
-		return new ResponseEntity<>(null, getHeader(contents), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<CurriculoLattes> patch(@PathVariable("id") Long id, @RequestBody CurriculoLattes entity) {
@@ -69,7 +62,7 @@ public class CurriculoLattesResource implements Resource<CurriculoLattes> {
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<CurriculoLattes> put(@PathVariable("id") Long id, @RequestBody CurriculoLattes entity) {
@@ -79,7 +72,7 @@ public class CurriculoLattesResource implements Resource<CurriculoLattes> {
 		if(entity.getId() == null || entity.getId().longValue() <= 0) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public ResponseEntity<CurriculoLattes> delete(@PathVariable("id") Long id) {
@@ -89,7 +82,7 @@ public class CurriculoLattesResource implements Resource<CurriculoLattes> {
 		}else {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, getHeader(), status);
+		return new ResponseEntity<>(null, status);
 	}
 	
 	public void fillInBlankFields(CurriculoLattes entity) {
