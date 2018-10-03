@@ -19,7 +19,7 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.Cu
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
 
 @RestController
-@RequestMapping(value="/curriculo-lattes", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/curriculo-lattes", produces=MediaType.APPLICATION_JSON_VALUE)
 public class CurriculoLattesResource implements Resource<CurriculoLattes> {
 
 	@Autowired

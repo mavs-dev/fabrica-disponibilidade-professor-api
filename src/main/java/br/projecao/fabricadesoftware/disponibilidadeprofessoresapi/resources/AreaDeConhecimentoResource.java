@@ -19,7 +19,7 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.Ar
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
 
 @RestController
-@RequestMapping(value="/area-de-conhecimento", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/area-de-conhecimento", produces=MediaType.APPLICATION_JSON_VALUE)
 public class AreaDeConhecimentoResource implements Resource<AreaDeConhecimento>{
 
 	@Autowired

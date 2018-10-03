@@ -19,7 +19,7 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.Di
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
 
 @RestController
-@RequestMapping(value="/disciplina", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/disciplina", produces=MediaType.APPLICATION_JSON_VALUE)
 public class DisciplinaResource implements Resource<Disciplina>{
 
 	@Autowired

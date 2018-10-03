@@ -19,7 +19,7 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.Us
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
 
 @RestController
-@RequestMapping(value="/usuario", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/usuario", produces=MediaType.APPLICATION_JSON_VALUE)
 public class UsuarioResource implements Resource<Usuario>{
 
 	@Autowired
