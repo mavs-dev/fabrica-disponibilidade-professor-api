@@ -6,4 +6,5 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models.Usuari
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
+	public Usuario findByEmail(String email);
 }
