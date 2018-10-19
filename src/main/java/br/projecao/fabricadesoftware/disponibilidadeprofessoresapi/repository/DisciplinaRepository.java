@@ -2,8 +2,8 @@ package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models.Disciplina;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.Disciplina;
 
-public interface DisciplinaRepository extends JpaRepository<Disciplina, Long>{
-	public Disciplina findByDescricao(String descricao);
+public interface DisciplinaRepository extends JpaRepository<Disciplina, Long> {
+
 }

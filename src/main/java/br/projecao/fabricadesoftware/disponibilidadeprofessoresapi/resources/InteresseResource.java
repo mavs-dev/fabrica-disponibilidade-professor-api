@@ -8,57 +8,57 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.Disciplina;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.Interesse;
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
 
 @RestController
-@RequestMapping(value = "/disciplina", produces = MediaType.APPLICATION_JSON_VALUE)
-public class DisciplinaResource implements Resource<Disciplina> {
+@RequestMapping(value = "/interesse", produces = MediaType.APPLICATION_JSON_VALUE)
+public class InteresseResource implements Resource<Interesse> {
 
 	@Override
-	public ResponseEntity<List<Disciplina>> getAll() {
+	public ResponseEntity<List<Interesse>> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Optional<Disciplina>> getOne(Long id) {
+	public ResponseEntity<Optional<Interesse>> getOne(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> post(Disciplina entity) {
+	public ResponseEntity<Interesse> post(Interesse entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> patch(Long id, Disciplina entity) {
+	public ResponseEntity<Interesse> patch(Long id, Interesse entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> put(Long id, Disciplina entity) {
+	public ResponseEntity<Interesse> put(Long id, Interesse entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> delete(Long id) {
+	public ResponseEntity<Interesse> delete(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void fillInBlankFields(Disciplina entity) {
+	public void fillInBlankFields(Interesse entity) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void merge(Disciplina newEntity, Disciplina oldEntity) {
+	public void merge(Interesse newEntity, Interesse oldEntity) {
 		// TODO Auto-generated method stub
 
 	}

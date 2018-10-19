@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.NivelAcesso;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Perfil;
 
 public class UserSS implements UserDetails{
 	private static final long serialVersionUID = -4252743386861191029L;
@@ -21,7 +21,7 @@ public class UserSS implements UserDetails{
 	public UserSS() {
 	}
 
-	public UserSS(Integer id, String email, String senha, Set<NivelAcesso> nivelAcesso) {
+	public UserSS(Integer id, String email, String senha, Set<Perfil> nivelAcesso) {
 		this.id = id;
 		this.email = email;
 		this.senha = senha;

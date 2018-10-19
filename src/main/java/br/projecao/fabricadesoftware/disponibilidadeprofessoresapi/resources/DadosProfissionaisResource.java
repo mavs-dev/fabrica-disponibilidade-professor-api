@@ -8,57 +8,57 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.Disciplina;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.DadosProfissionais;
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
 
 @RestController
-@RequestMapping(value = "/disciplina", produces = MediaType.APPLICATION_JSON_VALUE)
-public class DisciplinaResource implements Resource<Disciplina> {
+@RequestMapping(value = "/dados-profissionais", produces = MediaType.APPLICATION_JSON_VALUE)
+public class DadosProfissionaisResource implements Resource<DadosProfissionais> {
 
 	@Override
-	public ResponseEntity<List<Disciplina>> getAll() {
+	public ResponseEntity<List<DadosProfissionais>> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Optional<Disciplina>> getOne(Long id) {
+	public ResponseEntity<Optional<DadosProfissionais>> getOne(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> post(Disciplina entity) {
+	public ResponseEntity<DadosProfissionais> post(DadosProfissionais entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> patch(Long id, Disciplina entity) {
+	public ResponseEntity<DadosProfissionais> patch(Long id, DadosProfissionais entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> put(Long id, Disciplina entity) {
+	public ResponseEntity<DadosProfissionais> put(Long id, DadosProfissionais entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> delete(Long id) {
+	public ResponseEntity<DadosProfissionais> delete(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void fillInBlankFields(Disciplina entity) {
+	public void fillInBlankFields(DadosProfissionais entity) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void merge(Disciplina newEntity, Disciplina oldEntity) {
+	public void merge(DadosProfissionais newEntity, DadosProfissionais oldEntity) {
 		// TODO Auto-generated method stub
 
 	}

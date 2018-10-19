@@ -1,6 +1,9 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio;
 
-public enum NivelAcesso {
+import java.util.ArrayList;
+import java.util.List;
+
+public enum Perfil {
 	ADMINISTRADOR(1, "ROLE_ADMIN"),
 	DIRETOR(2, "ROLE_DIRETOR"),
 	COORDENADOR(3, "ROLE_COORDENADOR"),
@@ -9,7 +12,7 @@ public enum NivelAcesso {
 	private int codigo;
 	private String role;
 	
-	private NivelAcesso(int codigo, String role) {
+	private Perfil(int codigo, String role) {
 		this.codigo=codigo;
 		this.role=role;
 	}
@@ -22,14 +25,14 @@ public enum NivelAcesso {
 		return this.role;
 	}
 	
-	public boolean equals(NivelAcesso nivel) {
+	public boolean equals(Perfil nivel) {
 		return this.codigo == nivel.codigo;
 	}
 	public boolean equals(String role) {
 		return this.role.equals(role);
 	}
 	
-	public NivelAcesso getNivelAcesso(int codigo) {
+	public Perfil getNivelAcesso(int codigo) {
 		switch (codigo) {
 		case 1:
 			return ADMINISTRADOR;
@@ -44,7 +47,7 @@ public enum NivelAcesso {
 		}
 	}
 	
-	public NivelAcesso getNivelAcesso(String role) {
+	public Perfil getNivelAcesso(String role) {
 		switch (role) {
 		case "ROLE_ADMIN":
 			return ADMINISTRADOR;
@@ -57,5 +60,14 @@ public enum NivelAcesso {
 		default:
 			return null;
 		}
+	}
+	
+	public List<Perfil> getLista(){
+		List<Perfil> lista = new ArrayList<>();
+		lista.add(ADMINISTRADOR);
+		lista.add(DIRETOR);
+		lista.add(COORDENADOR);
+		lista.add(PROFESSOR);
+		return lista;
 	}
 }

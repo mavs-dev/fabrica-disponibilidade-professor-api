@@ -8,57 +8,57 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.Disciplina;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.Semestre;
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
 
 @RestController
-@RequestMapping(value = "/disciplina", produces = MediaType.APPLICATION_JSON_VALUE)
-public class DisciplinaResource implements Resource<Disciplina> {
+@RequestMapping(value = "/semestre", produces = MediaType.APPLICATION_JSON_VALUE)
+public class SemestreResource implements Resource<Semestre> {
 
 	@Override
-	public ResponseEntity<List<Disciplina>> getAll() {
+	public ResponseEntity<List<Semestre>> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Optional<Disciplina>> getOne(Long id) {
+	public ResponseEntity<Optional<Semestre>> getOne(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> post(Disciplina entity) {
+	public ResponseEntity<Semestre> post(Semestre entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> patch(Long id, Disciplina entity) {
+	public ResponseEntity<Semestre> patch(Long id, Semestre entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> put(Long id, Disciplina entity) {
+	public ResponseEntity<Semestre> put(Long id, Semestre entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> delete(Long id) {
+	public ResponseEntity<Semestre> delete(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void fillInBlankFields(Disciplina entity) {
+	public void fillInBlankFields(Semestre entity) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void merge(Disciplina newEntity, Disciplina oldEntity) {
+	public void merge(Semestre newEntity, Semestre oldEntity) {
 		// TODO Auto-generated method stub
 
 	}

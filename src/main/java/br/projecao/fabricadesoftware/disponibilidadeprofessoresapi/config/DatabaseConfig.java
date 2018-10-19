@@ -31,7 +31,7 @@ public class DatabaseConfig {
 	      LocalContainerEntityManagerFactoryBean em 
 	        = new LocalContainerEntityManagerFactoryBean();
 	      em.setDataSource(dataSource());
-	      em.setPackagesToScan(new String[] { "br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models" });
+	      em.setPackagesToScan(new String[] { "br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model" });
 	 
 	      JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 	      ((HibernateJpaVendorAdapter)vendorAdapter).setShowSql(SHOW_SQL.equalsIgnoreCase("true"));

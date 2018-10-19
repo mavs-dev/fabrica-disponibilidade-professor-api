@@ -5,11 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.models.Usuario;
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.UsuarioRepository;
 
-public class UserDetailsServiceImpl implements UserDetailsService{
-	
+public class UserDetailsServiceImpl /*implements UserDetailsService*/{
+/*	
 	@Autowired
 	private UsuarioRepository repo;
 
@@ -20,6 +18,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			throw new UsernameNotFoundException(email);
 		}
 		return new UserSS(user.getId(), user.getEmail(), user.getSenha(), user.getTipoUsuario());
-	}
+	}*/
 
 }
