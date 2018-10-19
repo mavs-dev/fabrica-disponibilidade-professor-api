@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum Perfil {
-	ADMINISTRADOR(1, "ROLE_ADMIN"),
-	DIRETOR(2, "ROLE_DIRETOR"),
-	COORDENADOR(3, "ROLE_COORDENADOR"),
-	PROFESSOR(4, "ROLE_PROFESSOR");
+	ADMINISTRADOR(0, "ROLE_ADMIN"),
+	DIRETOR(1, "ROLE_DIRETOR"),
+	COORDENADOR(2, "ROLE_COORDENADOR"),
+	PROFESSOR(3, "ROLE_PROFESSOR");
 	
 	private int codigo;
 	private String role;

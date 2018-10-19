@@ -3,8 +3,6 @@ package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,11 +19,9 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.int
 public class UsuarioResource implements Resource<Usuario> {
 
 	@Autowired
-	HttpServletRequest servlet;
-
-	@Autowired
 	private UsuarioRepository repository;
 
+	@Override
 	public ResponseEntity<List<Usuario>> getAll() {
 		List<Usuario> lista = repository.findAll();
 		HttpStatus status = HttpStatus.OK;
@@ -35,6 +31,7 @@ public class UsuarioResource implements Resource<Usuario> {
 		return new ResponseEntity<List<Usuario>>(lista, status);
 	}
 
+	@Override
 	public ResponseEntity<Optional<Usuario>> getOne(Long id) {
 		Optional<Usuario> model = repository.findById(id);
 		HttpStatus status = HttpStatus.OK;
@@ -45,6 +42,7 @@ public class UsuarioResource implements Resource<Usuario> {
 		return new ResponseEntity<Optional<Usuario>>(model, status);
 	}
 
+	@Override
 	public ResponseEntity<Usuario> post(Usuario entity) {
 		HttpStatus status = HttpStatus.CREATED;
 		try {
@@ -55,6 +53,7 @@ public class UsuarioResource implements Resource<Usuario> {
 		return new ResponseEntity<>(null, status);
 	}
 
+	@Override
 	public ResponseEntity<Usuario> patch(Long id, Usuario entity) {
 		/*
 		 * entity.setId(id); fillInBlankFields(entity); repository.save(entity);
@@ -64,6 +63,7 @@ public class UsuarioResource implements Resource<Usuario> {
 		return new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
 	}
 
+	@Override
 	public ResponseEntity<Usuario> put(Long id, Usuario entity) {
 		entity.setId(id);
 		repository.save(entity);
@@ -74,6 +74,7 @@ public class UsuarioResource implements Resource<Usuario> {
 		return new ResponseEntity<>(null, status);
 	}
 
+	@Override
 	public ResponseEntity<Usuario> delete(Long id) {
 		HttpStatus status = HttpStatus.NO_CONTENT;
 		if (repository.existsById(id)) {
@@ -84,10 +85,12 @@ public class UsuarioResource implements Resource<Usuario> {
 		return new ResponseEntity<>(null, status);
 	}
 
+	@Override
 	public void fillInBlankFields(Usuario entity) {
 
 	}
 
+	@Override
 	public void merge(Usuario newEntity, Usuario oldEntity) {
 
 	}
