@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="unidade_academica")
 public class UnidadeAcademica {
@@ -30,6 +32,7 @@ public class UnidadeAcademica {
 	private LocalDateTime dataHoraExclusao;
 
 	@ManyToMany(mappedBy="unidadesAcademicas")
+	@JsonIgnoreProperties({"disponibilidades"})
 	private Set<Disponibilidade> disponibilidades;
 	public Long getId() {
 		return id;

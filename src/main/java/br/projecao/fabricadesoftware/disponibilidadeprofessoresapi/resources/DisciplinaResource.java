@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +34,7 @@ public class DisciplinaResource implements Resource<Disciplina> {
 	}
 
 	@Override
-	public ResponseEntity<Optional<Disciplina>> getOne(Long id) {
+	public ResponseEntity<Optional<Disciplina>> getOne(@PathVariable("id") Long id) {
 		Optional<Disciplina> model = repository.findById(id);
 		HttpStatus status = HttpStatus.OK;
 		if (!model.isPresent()) {
@@ -43,7 +45,7 @@ public class DisciplinaResource implements Resource<Disciplina> {
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> post(Disciplina entity) {
+	public ResponseEntity<Disciplina> post(@RequestBody Disciplina entity) {
 		HttpStatus status = HttpStatus.CREATED;
 		try {
 			repository.save(entity);
@@ -54,7 +56,7 @@ public class DisciplinaResource implements Resource<Disciplina> {
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> patch(Long id, Disciplina entity) {
+	public ResponseEntity<Disciplina> patch(@PathVariable("id") Long id, @RequestBody Disciplina entity) {
 		/*
 		 * entity.setId(id); fillInBlankFields(entity); repository.save(entity);
 		 * HttpStatus status = HttpStatus.ACCEPTED; if (entity.getId() == null ||
@@ -64,7 +66,7 @@ public class DisciplinaResource implements Resource<Disciplina> {
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> put(Long id, Disciplina entity) {
+	public ResponseEntity<Disciplina> put(@PathVariable("id") Long id, @RequestBody Disciplina entity) {
 		entity.setId(id);
 		repository.save(entity);
 		HttpStatus status = HttpStatus.ACCEPTED;
@@ -75,7 +77,7 @@ public class DisciplinaResource implements Resource<Disciplina> {
 	}
 
 	@Override
-	public ResponseEntity<Disciplina> delete(Long id) {
+	public ResponseEntity<Disciplina> delete(@PathVariable("id") Long id) {
 		HttpStatus status = HttpStatus.NO_CONTENT;
 		if (repository.existsById(id)) {
 			repository.deleteById(id);

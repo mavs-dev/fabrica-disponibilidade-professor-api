@@ -29,10 +29,10 @@ public class Semestre {
 	@Column(nullable=false)
 	private LocalDate dataCadastro;
 	@OneToMany(mappedBy="semestre")
-	@JsonIgnoreProperties({"semestre"})
+	@JsonIgnoreProperties({"interesses"})
 	private Set<Interesse> interesses;
 	@OneToMany(mappedBy="semestre")
-	@JsonIgnoreProperties({"semestre"})
+	@JsonIgnoreProperties({"disponibilidades"})
 	private Set<Disponibilidade> disponibilidades;
 	
 	public Long getId() {
