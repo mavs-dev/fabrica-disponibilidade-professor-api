@@ -2,6 +2,7 @@ package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,8 +29,8 @@ public class CurriculoLattes {
 	private String url;
 	@Column(length=1000, nullable=false)
 	private String publicacoes;
-	
-	@OneToOne
+
+	@OneToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "id_dados_profissionais")
 	@JsonIgnoreProperties(value="curriculoLattes", allowGetters=true)
 	private DadosProfissionais dadosProfissionais;

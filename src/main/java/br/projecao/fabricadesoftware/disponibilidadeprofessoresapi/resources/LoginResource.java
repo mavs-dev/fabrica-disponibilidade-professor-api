@@ -1,6 +1,9 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,14 +24,20 @@ public class LoginResource {
 	private UsuarioRepository repository;
 	
 	@PostMapping
-	public ResponseEntity<String> validarUsuario(@RequestBody Usuario entity){
+	public ResponseEntity<Map<String, String>> validarUsuario(@RequestBody Usuario entity){
 		Usuario usuario = repository.findByEmail(entity.getEmail());
-		HttpStatus status = HttpStatus.OK;
-		String sessionTime = "{\"sessionTime\":30}";
-		if (usuario == null || !usuario.getSenha().equals(entity.getSenha())) {
-			status = HttpStatus.UNAUTHORIZED;
-			sessionTime = "";
+		HttpStatus status = HttpStatus.NON_AUTHORITATIVE_INFORMATION;
+		Map<String, String> resposta = new HashMap<>();
+		if (usuario != null && usuario.getSenha().equals(entity.getSenha())) {
+			status = HttpStatus.OK;
+			resposta.put("sessionTime", "30");
+			resposta.put("idUsuario", usuario.getId().toString());
+			resposta.put("nomeUsuario", usuario.getNome());
+			resposta.put("isDadosProfissionaisPreenchidos", usuario.getDadosProfissionais() != null ? "true" : "false");
+			resposta.put("mensagem", "sucesso");
+		} else {
+			resposta.put("mensagemErro", "Email ou senha inválida");
 		}
-		return new ResponseEntity<String>(sessionTime, status);
+		return new ResponseEntity<Map<String, String>>(resposta, status);
 	}
 }

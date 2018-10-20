@@ -2,6 +2,7 @@ package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -46,7 +47,7 @@ public class DadosProfissionais {
 	@Column(nullable=false)
 	private Integer tempoExpDocenciaEdBasica;
 	
-	@OneToOne(mappedBy="dadosProfissionais")
+	@OneToOne(mappedBy="dadosProfissionais", cascade=CascadeType.DETACH)
 	@JsonIgnoreProperties({"dadosProfissionais"})
 	private CurriculoLattes curriculoLattes;
 	

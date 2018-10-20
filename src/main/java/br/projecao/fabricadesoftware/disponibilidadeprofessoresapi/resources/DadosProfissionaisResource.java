@@ -52,7 +52,7 @@ public class DadosProfissionaisResource implements Resource<DadosProfissionais> 
 		} catch (Exception e) {
 			status = HttpStatus.NOT_MODIFIED;
 		}
-		return new ResponseEntity<>(null, status);
+		return new ResponseEntity<>(entity, status);
 	}
 
 	@Override
