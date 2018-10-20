@@ -61,6 +61,12 @@ public class Interesse {
 	public void setPrioridade(int prioridade) {
 		this.prioridade = prioridade;
 	}
+	public Usuario getProfessor() {
+		return professor;
+	}
+	public void setProfessor(Usuario professor) {
+		this.professor = professor;
+	}
 	public Disciplina getDisciplina() {
 		return disciplina;
 	}
@@ -72,6 +78,12 @@ public class Interesse {
 	}
 	public void setUnidadesAcademicas(Set<UnidadeAcademica> unidadesAcademicas) {
 		this.unidadesAcademicas = unidadesAcademicas;
+	}
+	public Semestre getSemestre() {
+		return semestre;
+	}
+	public void setSemestre(Semestre semestre) {
+		this.semestre = semestre;
 	}
 	public LocalDateTime getDataHoraCadastro() {
 		return dataHoraCadastro;

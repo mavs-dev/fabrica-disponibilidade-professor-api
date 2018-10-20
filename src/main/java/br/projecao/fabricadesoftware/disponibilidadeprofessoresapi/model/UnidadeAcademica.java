@@ -34,6 +34,7 @@ public class UnidadeAcademica {
 	@ManyToMany(mappedBy="unidadesAcademicas")
 	@JsonIgnoreProperties({"disponibilidades"})
 	private Set<Disponibilidade> disponibilidades;
+
 	public Long getId() {
 		return id;
 	}
@@ -82,4 +83,12 @@ public class UnidadeAcademica {
 		this.dataHoraExclusao = dataHoraExclusao;
 	}
 
+	public Set<Disponibilidade> getDisponibilidades() {
+		return disponibilidades;
+	}
+
+	public void setDisponibilidades(Set<Disponibilidade> disponibilidades) {
+		this.disponibilidades = disponibilidades;
+	}
+	
 }

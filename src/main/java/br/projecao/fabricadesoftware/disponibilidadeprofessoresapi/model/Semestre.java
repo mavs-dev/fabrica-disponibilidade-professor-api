@@ -59,4 +59,17 @@ public class Semestre {
 	public void setDataCadastro(LocalDate dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
+	public Set<Interesse> getInteresses() {
+		return interesses;
+	}
+	public void setInteresses(Set<Interesse> interesses) {
+		this.interesses = interesses;
+	}
+	public Set<Disponibilidade> getDisponibilidades() {
+		return disponibilidades;
+	}
+	public void setDisponibilidades(Set<Disponibilidade> disponibilidades) {
+		this.disponibilidades = disponibilidades;
+	}
+	
 }

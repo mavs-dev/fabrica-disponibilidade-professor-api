@@ -29,18 +29,22 @@ public class Disponibilidade {
 	@SequenceGenerator(name="dp_seq_disponibilidade", sequenceName="dp_seq_disponibilidade")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
+	
 	@Column(nullable=false)
 	@ManyToMany
     @JoinTable(name="unidades_da_disponibilidade", joinColumns=
     {@JoinColumn(name="id_disponibilidade")}, inverseJoinColumns=
       {@JoinColumn(name="id_unidades_academicas")})
 	private Set<UnidadeAcademica> unidadesAcademicas;
+	
 	@Column(nullable=false)
 	@Enumerated(EnumType.ORDINAL)
 	private Turno turno;
+	
 	@Column(nullable=false)
 	@Enumerated(EnumType.ORDINAL)
 	private DiaDaSemana diaDaSemana;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_semestre")
 	@JsonIgnoreProperties(value = "disponibilidade", allowSetters = true)
@@ -69,6 +73,12 @@ public class Disponibilidade {
 	}
 	public void setDiaDaSemana(DiaDaSemana diaDaSemana) {
 		this.diaDaSemana = diaDaSemana;
+	}
+	public Semestre getSemestre() {
+		return semestre;
+	}
+	public void setSemestre(Semestre semestre) {
+		this.semestre = semestre;
 	}
 	
 }

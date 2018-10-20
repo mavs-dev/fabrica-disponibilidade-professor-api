@@ -46,79 +46,109 @@ public class DadosProfissionais {
 	@Column(nullable=false)
 	private Integer tempoExpDocenciaEdBasica;
 	
-	@OneToOne
-	@JoinColumn(name = "curriculo_lattes")
+	@OneToOne(mappedBy="dadosProfissionais")
+	@JsonIgnoreProperties({"dadosProfissionais"})
 	private CurriculoLattes curriculoLattes;
 	
-	@OneToOne(mappedBy = "dadosProfissionais")
-	@JsonIgnoreProperties({"professor"})
+	@OneToOne
+	@JoinColumn(name = "id_professor")
+	@JsonIgnoreProperties({"dadosProfissionais"})
 	private Usuario professor;
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getGraduacao() {
 		return graduacao;
 	}
+
 	public void setGraduacao(String graduacao) {
 		this.graduacao = graduacao;
 	}
+
 	public LocalDate getDataConclusao() {
 		return dataConclusao;
 	}
+
 	public void setDataConclusao(LocalDate dataConclusao) {
 		this.dataConclusao = dataConclusao;
 	}
+
 	public NivelTitulacao getMaiorTitulacaoObtida() {
 		return maiorTitulacaoObtida;
 	}
+
 	public void setMaiorTitulacaoObtida(NivelTitulacao maiorTitulacaoObtida) {
 		this.maiorTitulacaoObtida = maiorTitulacaoObtida;
 	}
+
 	public boolean isTitulacaoEmAndamento() {
 		return titulacaoEmAndamento;
 	}
+
 	public void setTitulacaoEmAndamento(boolean titulacaoEmAndamento) {
 		this.titulacaoEmAndamento = titulacaoEmAndamento;
 	}
+
 	public String getDescricaoTitulacaoEmAndamento() {
 		return descricaoTitulacaoEmAndamento;
 	}
+
 	public void setDescricaoTitulacaoEmAndamento(String descricaoTitulacaoEmAndamento) {
 		this.descricaoTitulacaoEmAndamento = descricaoTitulacaoEmAndamento;
 	}
+
 	public String getPrincipalAtuacaoProfissional() {
 		return principalAtuacaoProfissional;
 	}
+
 	public void setPrincipalAtuacaoProfissional(String principalAtuacaoProfissional) {
 		this.principalAtuacaoProfissional = principalAtuacaoProfissional;
 	}
+
 	public Integer getTempoExpProfissional() {
 		return tempoExpProfissional;
 	}
+
 	public void setTempoExpProfissional(Integer tempoExpProfissional) {
 		this.tempoExpProfissional = tempoExpProfissional;
 	}
+
 	public Integer getTempoExpMagisterioSuperior() {
 		return tempoExpMagisterioSuperior;
 	}
+
 	public void setTempoExpMagisterioSuperior(Integer tempoExpMagisterioSuperior) {
 		this.tempoExpMagisterioSuperior = tempoExpMagisterioSuperior;
 	}
+
 	public Integer getTempoExpDocenciaEdBasica() {
 		return tempoExpDocenciaEdBasica;
 	}
+
 	public void setTempoExpDocenciaEdBasica(Integer tempoExpDocenciaEdBasica) {
 		this.tempoExpDocenciaEdBasica = tempoExpDocenciaEdBasica;
 	}
+
+	public CurriculoLattes getCurriculoLattes() {
+		return curriculoLattes;
+	}
+
+	public void setCurriculoLattes(CurriculoLattes curriculoLattes) {
+		this.curriculoLattes = curriculoLattes;
+	}
+
 	public Usuario getProfessor() {
 		return professor;
 	}
+
 	public void setProfessor(Usuario professor) {
 		this.professor = professor;
 	}
-	
+
 }
