@@ -19,11 +19,11 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Perfi
 
 @Entity
 @Table(name = "usuario")
+@SequenceGenerator(name="dp_seq_usuario", sequenceName="dp_seq_usuario")
 public class Usuario {
 
 	@Id
-	@SequenceGenerator(name="dp_seq_usuario", sequenceName="dp_seq_usuario")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_usuario")
 	private Long id;
 	@Column(length=75, nullable=false)
 	private String nome;
@@ -31,17 +31,16 @@ public class Usuario {
 	private String email;
 	@Column(length=255, nullable=false)
 	private String senha;
-	
-	private LocalDateTime dataHoraCadastro;
-	private LocalDateTime dataHoraAlteracao;
-	private LocalDateTime dataHoraExclusao;
-	
 	@Column(nullable=false)
 	@Enumerated(EnumType.ORDINAL)
 	private Perfil perfil;
 	@OneToOne(mappedBy="professor")
 	@JsonIgnoreProperties({"professor"})
 	private DadosProfissionais dadosProfissionais;
+	
+	private LocalDateTime dataHoraCadastro;
+	private LocalDateTime dataHoraAlteracao;
+	private LocalDateTime dataHoraExclusao;
 	
 	public Long getId() {
 		return id;
@@ -67,6 +66,18 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	public Perfil getPerfil() {
+		return perfil;
+	}
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
+	}
+	public DadosProfissionais getDadosProfissionais() {
+		return dadosProfissionais;
+	}
+	public void setDadosProfissionais(DadosProfissionais dadosProfissionais) {
+		this.dadosProfissionais = dadosProfissionais;
+	}
 	public LocalDateTime getDataHoraCadastro() {
 		return dataHoraCadastro;
 	}
@@ -85,17 +96,5 @@ public class Usuario {
 	public void setDataHoraExclusao(LocalDateTime dataHoraExclusao) {
 		this.dataHoraExclusao = dataHoraExclusao;
 	}
-	public Perfil getPerfil() {
-		return perfil;
-	}
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
-	}
-	public DadosProfissionais getDadosProfissionais() {
-		return dadosProfissionais;
-	}
-	public void setDadosProfissionais(DadosProfissionais dadosProfissionais) {
-		this.dadosProfissionais = dadosProfissionais;
-	}
-
+	
 }

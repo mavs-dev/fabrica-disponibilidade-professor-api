@@ -1,5 +1,6 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -23,11 +24,11 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Turno
 
 @Entity
 @Table
+@SequenceGenerator(name="dp_seq_disponibilidade", sequenceName="dp_seq_disponibilidade")
 public class Disponibilidade {
 
 	@Id
-	@SequenceGenerator(name="dp_seq_disponibilidade", sequenceName="dp_seq_disponibilidade")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_disponibilidade")
 	private Long id;
 	
 	@Column(nullable=false)
@@ -49,6 +50,10 @@ public class Disponibilidade {
 	@JoinColumn(name = "id_semestre")
 	@JsonIgnoreProperties(value = "disponibilidade", allowSetters = true)
 	private Semestre semestre;
+	
+	private LocalDateTime dataHoraCadastro;
+	private LocalDateTime dataHoraAlteracao;
+	private LocalDateTime dataHoraExclusao;
 	
 	public Long getId() {
 		return id;
@@ -80,5 +85,23 @@ public class Disponibilidade {
 	public void setSemestre(Semestre semestre) {
 		this.semestre = semestre;
 	}
-	
+	public LocalDateTime getDataHoraCadastro() {
+		return dataHoraCadastro;
+	}
+	public void setDataHoraCadastro(LocalDateTime dataHoraCadastro) {
+		this.dataHoraCadastro = dataHoraCadastro;
+	}
+	public LocalDateTime getDataHoraAlteracao() {
+		return dataHoraAlteracao;
+	}
+	public void setDataHoraAlteracao(LocalDateTime dataHoraAlteracao) {
+		this.dataHoraAlteracao = dataHoraAlteracao;
+	}
+	public LocalDateTime getDataHoraExclusao() {
+		return dataHoraExclusao;
+	}
+	public void setDataHoraExclusao(LocalDateTime dataHoraExclusao) {
+		this.dataHoraExclusao = dataHoraExclusao;
+	}
+		
 }

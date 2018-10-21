@@ -17,69 +17,58 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="disciplina")
+@SequenceGenerator(name="dp_seq_disciplina", sequenceName="dp_seq_disciplina")
 public class Disciplina {
 
 	@Id
-	@SequenceGenerator(name="dp_seq_disciplina", sequenceName="dp_seq_disciplina")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_disciplina")
 	private Long id;
 	@Column(length=75, nullable=false)
 	private String descricao;
-	
-	private LocalDateTime dataHoraCadastro;
-	private LocalDateTime dataHoraAlteracao;
-	private LocalDateTime dataHoraExclusao;
 	
 	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"interesse"})
 	private List<Interesse> interesse;
 
+	private LocalDateTime dataHoraCadastro;
+	private LocalDateTime dataHoraAlteracao;
+	private LocalDateTime dataHoraExclusao;
+	
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getDescricao() {
 		return descricao;
 	}
-
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	public LocalDateTime getDataHoraCadastro() {
-		return dataHoraCadastro;
-	}
-
-	public void setDataHoraCadastro(LocalDateTime dataHoraCadastro) {
-		this.dataHoraCadastro = dataHoraCadastro;
-	}
-
-	public LocalDateTime getDataHoraAlteracao() {
-		return dataHoraAlteracao;
-	}
-
-	public void setDataHoraAlteracao(LocalDateTime dataHoraAlteracao) {
-		this.dataHoraAlteracao = dataHoraAlteracao;
-	}
-
-	public LocalDateTime getDataHoraExclusao() {
-		return dataHoraExclusao;
-	}
-
-	public void setDataHoraExclusao(LocalDateTime dataHoraExclusao) {
-		this.dataHoraExclusao = dataHoraExclusao;
-	}
-
 	public List<Interesse> getInteresse() {
 		return interesse;
 	}
-
 	public void setInteresse(List<Interesse> interesse) {
 		this.interesse = interesse;
+	}
+	public LocalDateTime getDataHoraCadastro() {
+		return dataHoraCadastro;
+	}
+	public void setDataHoraCadastro(LocalDateTime dataHoraCadastro) {
+		this.dataHoraCadastro = dataHoraCadastro;
+	}
+	public LocalDateTime getDataHoraAlteracao() {
+		return dataHoraAlteracao;
+	}
+	public void setDataHoraAlteracao(LocalDateTime dataHoraAlteracao) {
+		this.dataHoraAlteracao = dataHoraAlteracao;
+	}
+	public LocalDateTime getDataHoraExclusao() {
+		return dataHoraExclusao;
+	}
+	public void setDataHoraExclusao(LocalDateTime dataHoraExclusao) {
+		this.dataHoraExclusao = dataHoraExclusao;
 	}
 	
 }

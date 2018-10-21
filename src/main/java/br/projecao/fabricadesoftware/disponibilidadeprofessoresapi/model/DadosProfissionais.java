@@ -1,6 +1,7 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,11 +22,11 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Nivel
 
 @Entity
 @Table(name="dados_profissionais")
+@SequenceGenerator(name="dp_seq_dados_prof", sequenceName="dp_seq_dados_prof")
 public class DadosProfissionais {
 
 	@Id
-	@SequenceGenerator(name="dp_seq_dados_prof", sequenceName="dp_seq_dados_prof")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_dados_prof")
 	private Long id;
 	@Column(length=75,nullable=false)
 	private String graduacao;
@@ -55,101 +56,100 @@ public class DadosProfissionais {
 	@JoinColumn(name = "id_professor")
 	@JsonIgnoreProperties({"dadosProfissionais"})
 	private Usuario professor;
-
+	
+	private LocalDateTime dataHoraCadastro;
+	private LocalDateTime dataHoraAlteracao;
+	private LocalDateTime dataHoraExclusao;
+	
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getGraduacao() {
 		return graduacao;
 	}
-
 	public void setGraduacao(String graduacao) {
 		this.graduacao = graduacao;
 	}
-
 	public LocalDate getDataConclusao() {
 		return dataConclusao;
 	}
-
 	public void setDataConclusao(LocalDate dataConclusao) {
 		this.dataConclusao = dataConclusao;
 	}
-
 	public NivelTitulacao getMaiorTitulacaoObtida() {
 		return maiorTitulacaoObtida;
 	}
-
 	public void setMaiorTitulacaoObtida(NivelTitulacao maiorTitulacaoObtida) {
 		this.maiorTitulacaoObtida = maiorTitulacaoObtida;
 	}
-
 	public boolean isTitulacaoEmAndamento() {
 		return titulacaoEmAndamento;
 	}
-
 	public void setTitulacaoEmAndamento(boolean titulacaoEmAndamento) {
 		this.titulacaoEmAndamento = titulacaoEmAndamento;
 	}
-
 	public String getDescricaoTitulacaoEmAndamento() {
 		return descricaoTitulacaoEmAndamento;
 	}
-
 	public void setDescricaoTitulacaoEmAndamento(String descricaoTitulacaoEmAndamento) {
 		this.descricaoTitulacaoEmAndamento = descricaoTitulacaoEmAndamento;
 	}
-
 	public String getPrincipalAtuacaoProfissional() {
 		return principalAtuacaoProfissional;
 	}
-
 	public void setPrincipalAtuacaoProfissional(String principalAtuacaoProfissional) {
 		this.principalAtuacaoProfissional = principalAtuacaoProfissional;
 	}
-
 	public Integer getTempoExpProfissional() {
 		return tempoExpProfissional;
 	}
-
 	public void setTempoExpProfissional(Integer tempoExpProfissional) {
 		this.tempoExpProfissional = tempoExpProfissional;
 	}
-
 	public Integer getTempoExpMagisterioSuperior() {
 		return tempoExpMagisterioSuperior;
 	}
-
 	public void setTempoExpMagisterioSuperior(Integer tempoExpMagisterioSuperior) {
 		this.tempoExpMagisterioSuperior = tempoExpMagisterioSuperior;
 	}
-
 	public Integer getTempoExpDocenciaEdBasica() {
 		return tempoExpDocenciaEdBasica;
 	}
-
 	public void setTempoExpDocenciaEdBasica(Integer tempoExpDocenciaEdBasica) {
 		this.tempoExpDocenciaEdBasica = tempoExpDocenciaEdBasica;
 	}
-
 	public CurriculoLattes getCurriculoLattes() {
 		return curriculoLattes;
 	}
-
 	public void setCurriculoLattes(CurriculoLattes curriculoLattes) {
 		this.curriculoLattes = curriculoLattes;
 	}
-
 	public Usuario getProfessor() {
 		return professor;
 	}
-
 	public void setProfessor(Usuario professor) {
 		this.professor = professor;
 	}
-
+	public LocalDateTime getDataHoraCadastro() {
+		return dataHoraCadastro;
+	}
+	public void setDataHoraCadastro(LocalDateTime dataHoraCadastro) {
+		this.dataHoraCadastro = dataHoraCadastro;
+	}
+	public LocalDateTime getDataHoraAlteracao() {
+		return dataHoraAlteracao;
+	}
+	public void setDataHoraAlteracao(LocalDateTime dataHoraAlteracao) {
+		this.dataHoraAlteracao = dataHoraAlteracao;
+	}
+	public LocalDateTime getDataHoraExclusao() {
+		return dataHoraExclusao;
+	}
+	public void setDataHoraExclusao(LocalDateTime dataHoraExclusao) {
+		this.dataHoraExclusao = dataHoraExclusao;
+	}
+	
 }

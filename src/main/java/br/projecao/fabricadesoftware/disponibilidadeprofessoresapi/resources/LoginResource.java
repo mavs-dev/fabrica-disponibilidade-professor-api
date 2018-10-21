@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.Usuario;
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.UsuarioRepository;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.util.CriptografiaUtil;
 
 @RestController
 @RequestMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,6 +27,7 @@ public class LoginResource {
 	@PostMapping
 	public ResponseEntity<Map<String, String>> validarUsuario(@RequestBody Usuario entity){
 		Usuario usuario = repository.findByEmail(entity.getEmail());
+		entity.setSenha(CriptografiaUtil.getHash(entity.getSenha()));
 		HttpStatus status = HttpStatus.NON_AUTHORITATIVE_INFORMATION;
 		Map<String, String> resposta = new HashMap<>();
 		if (usuario != null && usuario.getSenha().equals(entity.getSenha())) {

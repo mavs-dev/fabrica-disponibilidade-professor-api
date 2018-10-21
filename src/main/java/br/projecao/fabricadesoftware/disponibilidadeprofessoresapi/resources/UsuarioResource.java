@@ -1,15 +1,10 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,71 +21,6 @@ public class UsuarioResource implements Resource<Usuario> {
 	private UsuarioRepository repository;
 
 	@Override
-	public ResponseEntity<List<Usuario>> getAll() {
-		List<Usuario> lista = repository.findAll();
-		HttpStatus status = HttpStatus.OK;
-		if (lista == null || lista.isEmpty()) {
-			status = HttpStatus.NO_CONTENT;
-		}
-		return new ResponseEntity<List<Usuario>>(lista, status);
-	}
-
-	@Override
-	public ResponseEntity<Optional<Usuario>> getOne(@PathVariable("id") Long id) {
-		Optional<Usuario> model = repository.findById(id);
-		HttpStatus status = HttpStatus.OK;
-		if (!model.isPresent()) {
-			model = null;
-			status = HttpStatus.NO_CONTENT;
-		}
-		return new ResponseEntity<Optional<Usuario>>(model, status);
-	}
-
-	public ResponseEntity<Usuario> post(@RequestBody Usuario entity) {
-		criptografarSenha(entity);
-		entity.setDataHoraCadastro(LocalDateTime.now());
-		HttpStatus status = HttpStatus.CREATED;
-		try {
-			repository.save(entity);
-		} catch (Exception e) {
-			status = HttpStatus.NOT_MODIFIED;
-		}
-		return new ResponseEntity<>(null, status);
-	}
-
-	@Override
-	public ResponseEntity<Usuario> patch(@PathVariable("id") Long id, @RequestBody Usuario entity) {
-		/*
-		 * entity.setId(id); fillInBlankFields(entity); repository.save(entity);
-		 * HttpStatus status = HttpStatus.ACCEPTED; if (entity.getId() == null ||
-		 * entity.getId().longValue() <= 0) { status = HttpStatus.NOT_MODIFIED; }
-		 */
-		return new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
-	}
-
-	@Override
-	public ResponseEntity<Usuario> put(@PathVariable("id") Long id, @RequestBody Usuario entity) {
-		entity.setId(id);
-		repository.save(entity);
-		HttpStatus status = HttpStatus.ACCEPTED;
-		if (entity.getId() == null || entity.getId().longValue() <= 0) {
-			status = HttpStatus.NOT_MODIFIED;
-		}
-		return new ResponseEntity<>(null, status);
-	}
-
-	@Override
-	public ResponseEntity<Usuario> delete(@PathVariable("id") Long id) {
-		HttpStatus status = HttpStatus.NO_CONTENT;
-		if (repository.existsById(id)) {
-			repository.deleteById(id);
-		} else {
-			status = HttpStatus.NOT_MODIFIED;
-		}
-		return new ResponseEntity<>(null, status);
-	}
-
-	@Override
 	public void fillInBlankFields(Usuario entity) {
 
 	}
@@ -99,9 +29,38 @@ public class UsuarioResource implements Resource<Usuario> {
 	public void merge(Usuario newEntity, Usuario oldEntity) {
 
 	}
-	
-	private void criptografarSenha(Usuario entity) {
-		entity.setSenha(CriptografiaUtil.getHash(entity.getSenha()));
+
+	@Override
+	public JpaRepository<Usuario, Long> getRepository() {
+		return this.repository;
 	}
 
+	@Override
+	public void executaAntesDeCadastrar(Usuario entity) {
+		entity.setSenha(CriptografiaUtil.getHash(entity.getSenha()));
+		entity.setDataHoraCadastro(LocalDateTime.now());
+	}
+
+	@Override
+	public void executaAntesDeAtualizarParcialMente(Long id, Usuario entity) {
+		entity.setId(id);
+		entity.setDataHoraAlteracao(LocalDateTime.now());
+		fillInBlankFields(entity);
+	}
+
+	@Override
+	public void executaAntesDeAtualizarTotalmente(Long id, Usuario entity) {
+		entity.setId(id);
+		entity.setDataHoraAlteracao(LocalDateTime.now());
+	}
+
+	@Override
+	public void executaAntesDeDeletar(Long id) {
+		
+	}
+
+	@Override
+	public boolean isInvalidoParaAtualizacao(Long id, Usuario entity) {
+		return entity.getId() == null || entity.getId().longValue() <= 0;
+	}
 }

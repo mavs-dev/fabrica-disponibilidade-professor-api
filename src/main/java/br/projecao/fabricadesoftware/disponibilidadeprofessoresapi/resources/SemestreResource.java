@@ -1,14 +1,10 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,70 +20,6 @@ public class SemestreResource implements Resource<Semestre> {
 	private SemestreRepository repository;
 
 	@Override
-	public ResponseEntity<List<Semestre>> getAll() {
-		List<Semestre> lista = repository.findAll();
-		HttpStatus status = HttpStatus.OK;
-		if (lista == null || lista.isEmpty()) {
-			status = HttpStatus.NO_CONTENT;
-		}
-		return new ResponseEntity<List<Semestre>>(lista, status);
-	}
-
-	@Override
-	public ResponseEntity<Optional<Semestre>> getOne(@PathVariable("id") Long id) {
-		Optional<Semestre> model = repository.findById(id);
-		HttpStatus status = HttpStatus.OK;
-		if (!model.isPresent()) {
-			model = null;
-			status = HttpStatus.NO_CONTENT;
-		}
-		return new ResponseEntity<Optional<Semestre>>(model, status);
-	}
-
-	@Override
-	public ResponseEntity<Semestre> post(@RequestBody Semestre entity) {
-		HttpStatus status = HttpStatus.CREATED;
-		try {
-			repository.save(entity);
-		} catch (Exception e) {
-			status = HttpStatus.NOT_MODIFIED;
-		}
-		return new ResponseEntity<>(null, status);
-	}
-
-	@Override
-	public ResponseEntity<Semestre> patch(@PathVariable("id") Long id, @RequestBody Semestre entity) {
-		/*
-		 * entity.setId(id); fillInBlankFields(entity); repository.save(entity);
-		 * HttpStatus status = HttpStatus.ACCEPTED; if (entity.getId() == null ||
-		 * entity.getId().longValue() <= 0) { status = HttpStatus.NOT_MODIFIED; }
-		 */
-		return new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
-	}
-
-	@Override
-	public ResponseEntity<Semestre> put(@PathVariable("id") Long id, @RequestBody Semestre entity) {
-		entity.setId(id);
-		repository.save(entity);
-		HttpStatus status = HttpStatus.ACCEPTED;
-		if (entity.getId() == null || entity.getId().longValue() <= 0) {
-			status = HttpStatus.NOT_MODIFIED;
-		}
-		return new ResponseEntity<>(null, status);
-	}
-
-	@Override
-	public ResponseEntity<Semestre> delete(@PathVariable("id") Long id) {
-		HttpStatus status = HttpStatus.NO_CONTENT;
-		if (repository.existsById(id)) {
-			repository.deleteById(id);
-		} else {
-			status = HttpStatus.NOT_MODIFIED;
-		}
-		return new ResponseEntity<>(null, status);
-	}
-
-	@Override
 	public void fillInBlankFields(Semestre entity) {
 
 	}
@@ -95,6 +27,39 @@ public class SemestreResource implements Resource<Semestre> {
 	@Override
 	public void merge(Semestre newEntity, Semestre oldEntity) {
 
+	}
+
+	@Override
+	public JpaRepository<Semestre, Long> getRepository() {
+		return this.repository;
+	}
+
+	@Override
+	public void executaAntesDeCadastrar(Semestre entity) {
+		entity.setDataHoraCadastro(LocalDateTime.now());
+	}
+
+	@Override
+	public void executaAntesDeAtualizarParcialMente(Long id, Semestre entity) {
+		entity.setId(id);
+		entity.setDataHoraAlteracao(LocalDateTime.now());
+		fillInBlankFields(entity);
+	}
+
+	@Override
+	public void executaAntesDeAtualizarTotalmente(Long id, Semestre entity) {
+		entity.setId(id);
+		entity.setDataHoraAlteracao(LocalDateTime.now());
+	}
+
+	@Override
+	public void executaAntesDeDeletar(Long id) {
+		
+	}
+
+	@Override
+	public boolean isInvalidoParaAtualizacao(Long id, Semestre entity) {
+		return entity.getId() == null || entity.getId().longValue() <= 0;
 	}
 
 }

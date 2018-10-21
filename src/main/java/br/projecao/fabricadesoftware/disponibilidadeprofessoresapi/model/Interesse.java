@@ -19,11 +19,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table
+@SequenceGenerator(name="dp_seq_interesse", sequenceName="dp_seq_interesse")
 public class Interesse {
 	
 	@Id
-	@SequenceGenerator(name="dp_seq_interesse", sequenceName="dp_seq_interesse")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_interesse")
 	private Long id;
 	@Column(nullable=false)
 	private int prioridade;
