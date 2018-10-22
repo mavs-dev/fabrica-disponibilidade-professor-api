@@ -36,6 +36,7 @@ public class Disponibilidade {
     @JoinTable(name="unidades_da_disponibilidade", joinColumns=
     {@JoinColumn(name="id_disponibilidade")}, inverseJoinColumns=
       {@JoinColumn(name="id_unidades_academicas")})
+	@JsonIgnoreProperties({"disponibilidades"})
 	private Set<UnidadeAcademica> unidadesAcademicas;
 	
 	@Column(nullable=false)
@@ -48,8 +49,13 @@ public class Disponibilidade {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_semestre")
-	@JsonIgnoreProperties(value = "disponibilidade", allowSetters = true)
+	@JsonIgnoreProperties({"disponibilidades"})
 	private Semestre semestre;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_professor")
+	@JsonIgnoreProperties({"disponibilidades"})
+	private Usuario professor;
 	
 	private LocalDateTime dataHoraCadastro;
 	private LocalDateTime dataHoraAlteracao;
@@ -85,6 +91,12 @@ public class Disponibilidade {
 	public void setSemestre(Semestre semestre) {
 		this.semestre = semestre;
 	}
+	public Usuario getProfessor() {
+		return professor;
+	}
+	public void setProfessor(Usuario professor) {
+		this.professor = professor;
+	}
 	public LocalDateTime getDataHoraCadastro() {
 		return dataHoraCadastro;
 	}
@@ -103,5 +115,5 @@ public class Disponibilidade {
 	public void setDataHoraExclusao(LocalDateTime dataHoraExclusao) {
 		this.dataHoraExclusao = dataHoraExclusao;
 	}
-		
+	
 }

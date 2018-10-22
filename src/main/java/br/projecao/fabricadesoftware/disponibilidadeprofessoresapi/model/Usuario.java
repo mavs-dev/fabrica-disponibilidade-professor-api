@@ -1,6 +1,7 @@
 package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -37,6 +39,10 @@ public class Usuario {
 	@OneToOne(mappedBy="professor")
 	@JsonIgnoreProperties({"professor"})
 	private DadosProfissionais dadosProfissionais;
+	
+	@OneToMany(mappedBy="professor")
+	@JsonIgnoreProperties({"professor"})
+	private Set<Disponibilidade> disponibilidades;
 	
 	private LocalDateTime dataHoraCadastro;
 	private LocalDateTime dataHoraAlteracao;
@@ -77,6 +83,12 @@ public class Usuario {
 	}
 	public void setDadosProfissionais(DadosProfissionais dadosProfissionais) {
 		this.dadosProfissionais = dadosProfissionais;
+	}
+	public Set<Disponibilidade> getDisponibilidades() {
+		return disponibilidades;
+	}
+	public void setDisponibilidades(Set<Disponibilidade> disponibilidades) {
+		this.disponibilidades = disponibilidades;
 	}
 	public LocalDateTime getDataHoraCadastro() {
 		return dataHoraCadastro;
