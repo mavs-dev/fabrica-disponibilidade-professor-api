@@ -8,48 +8,46 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.Usuario;
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.UsuarioRepository;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.Interesse;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.InteresseRepository;
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.util.CriptografiaUtil;
 
 @RestController
-@RequestMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-public class UsuarioResource implements Resource<Usuario> {
+@RequestMapping(value = "/interesse", produces = MediaType.APPLICATION_JSON_VALUE)
+public class InteresseResource implements Resource<Interesse> {
 
 	@Autowired
-	private UsuarioRepository repository;
+	private InteresseRepository repository;
 
 	@Override
-	public void fillInBlankFields(Usuario entity) {
+	public void fillInBlankFields(Interesse entity) {
 
 	}
 
 	@Override
-	public void merge(Usuario newEntity, Usuario oldEntity) {
+	public void merge(Interesse newEntity, Interesse oldEntity) {
 
 	}
 
 	@Override
-	public JpaRepository<Usuario, Long> getRepository() {
+	public JpaRepository<Interesse, Long> getRepository() {
 		return this.repository;
 	}
 
 	@Override
-	public void executaAntesDeCadastrar(Usuario entity) {
-		entity.setSenha(CriptografiaUtil.getHash(entity.getSenha()));
+	public void executaAntesDeCadastrar(Interesse entity) {
 		entity.setDataHoraCadastro(LocalDateTime.now());
 	}
 
 	@Override
-	public void executaAntesDeAtualizarParcialMente(Long id, Usuario entity) {
+	public void executaAntesDeAtualizarParcialMente(Long id, Interesse entity) {
 		entity.setId(id);
 		entity.setDataHoraAlteracao(LocalDateTime.now());
 		fillInBlankFields(entity);
 	}
 
 	@Override
-	public void executaAntesDeAtualizarTotalmente(Long id, Usuario entity) {
+	public void executaAntesDeAtualizarTotalmente(Long id, Interesse entity) {
 		entity.setId(id);
 		entity.setDataHoraAlteracao(LocalDateTime.now());
 	}
@@ -60,7 +58,8 @@ public class UsuarioResource implements Resource<Usuario> {
 	}
 
 	@Override
-	public boolean isInvalidoParaAtualizacao(Long id, Usuario entity) {
+	public boolean isInvalidoParaAtualizacao(Long id, Interesse entity) {
 		return entity.getId() == null || entity.getId().longValue() <= 0;
 	}
+
 }

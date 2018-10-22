@@ -8,7 +8,7 @@
 
 	<name>disponibilidade-professores-api</name>
 	<description>System for managing teacher availability</description>
-	<version>1.0.0-alpha.4</version>
+	<version>1.0.0-alpha.5</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -63,7 +63,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.2.4</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>

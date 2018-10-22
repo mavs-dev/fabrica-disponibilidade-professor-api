@@ -8,48 +8,46 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.Usuario;
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.UsuarioRepository;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.DadosProfissionais;
+import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.DadosProfissionaisRepository;
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.util.CriptografiaUtil;
 
 @RestController
-@RequestMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-public class UsuarioResource implements Resource<Usuario> {
+@RequestMapping(value = "/dados-profissionais", produces = MediaType.APPLICATION_JSON_VALUE)
+public class DadosProfissionaisResource implements Resource<DadosProfissionais> {
 
 	@Autowired
-	private UsuarioRepository repository;
+	private DadosProfissionaisRepository repository;
 
 	@Override
-	public void fillInBlankFields(Usuario entity) {
+	public void fillInBlankFields(DadosProfissionais entity) {
 
 	}
 
 	@Override
-	public void merge(Usuario newEntity, Usuario oldEntity) {
+	public void merge(DadosProfissionais newEntity, DadosProfissionais oldEntity) {
 
 	}
 
 	@Override
-	public JpaRepository<Usuario, Long> getRepository() {
+	public JpaRepository<DadosProfissionais, Long> getRepository() {
 		return this.repository;
 	}
 
 	@Override
-	public void executaAntesDeCadastrar(Usuario entity) {
-		entity.setSenha(CriptografiaUtil.getHash(entity.getSenha()));
+	public void executaAntesDeCadastrar(DadosProfissionais entity) {
 		entity.setDataHoraCadastro(LocalDateTime.now());
 	}
 
 	@Override
-	public void executaAntesDeAtualizarParcialMente(Long id, Usuario entity) {
+	public void executaAntesDeAtualizarParcialMente(Long id, DadosProfissionais entity) {
 		entity.setId(id);
 		entity.setDataHoraAlteracao(LocalDateTime.now());
 		fillInBlankFields(entity);
 	}
 
 	@Override
-	public void executaAntesDeAtualizarTotalmente(Long id, Usuario entity) {
+	public void executaAntesDeAtualizarTotalmente(Long id, DadosProfissionais entity) {
 		entity.setId(id);
 		entity.setDataHoraAlteracao(LocalDateTime.now());
 	}
@@ -60,7 +58,8 @@ public class UsuarioResource implements Resource<Usuario> {
 	}
 
 	@Override
-	public boolean isInvalidoParaAtualizacao(Long id, Usuario entity) {
+	public boolean isInvalidoParaAtualizacao(Long id, DadosProfissionais entity) {
 		return entity.getId() == null || entity.getId().longValue() <= 0;
 	}
+	
 }
