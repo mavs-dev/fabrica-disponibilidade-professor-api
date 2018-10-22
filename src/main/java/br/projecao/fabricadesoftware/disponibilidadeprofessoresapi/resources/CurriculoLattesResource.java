@@ -54,7 +54,6 @@ public class CurriculoLattesResource implements Resource<CurriculoLattes> {
 
 	@Override
 	public void executaAntesDeDeletar(Long id) {
-		
 	}
 
 	@Override

@@ -16,13 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+/**
+ * M1 será subistituido pela model informada na classe que implementará essa interface.
+ * */
 @RestController
-public interface Resource<Model> {
+public interface Resource<M1> {
 
 	@GetMapping
-	default ResponseEntity<List<Model>> getAll() {
-		List<Model> lista = null;
+	default ResponseEntity<List<M1>> getAll() {
+		List<M1> lista = null;
 		HttpStatus status = HttpStatus.OK;
 		try {
 			lista = getRepository().findAll();
@@ -33,13 +35,13 @@ public interface Resource<Model> {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 			e.printStackTrace();
 		}
-		return new ResponseEntity<List<Model>>(lista, status);
+		return new ResponseEntity<>(lista, status);
 	}
 
 	@GetMapping
 	@RequestMapping(value = "/{id}")
-	default ResponseEntity<Optional<Model>> getOne(@PathVariable("id") Long id) {
-		Optional<Model> model = null;
+	default ResponseEntity<Optional<M1>> getOne(@PathVariable("id") Long id) {
+		Optional<M1> model = null;
 		HttpStatus status = HttpStatus.OK;
 		try {
 			model = getRepository().findById(id);
@@ -51,11 +53,11 @@ public interface Resource<Model> {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 			e.printStackTrace();
 		}
-		return new ResponseEntity<Optional<Model>>(model, status);
+		return new ResponseEntity<>(model, status);
 	}
 
 	@PostMapping
-	default ResponseEntity<Model> post(@RequestBody Model entity) {
+	default ResponseEntity<M1> post(@RequestBody M1 entity) {
 		HttpStatus status = HttpStatus.CREATED;
 		executaAntesDeCadastrar(entity);
 		try {
@@ -68,7 +70,7 @@ public interface Resource<Model> {
 	}
 
 	@PatchMapping(value = "/{id}")
-	default ResponseEntity<Model> patch(@PathVariable("id") Long id, @RequestBody Model entity) {
+	default ResponseEntity<M1> patch(@PathVariable("id") Long id, @RequestBody M1 entity) {
 		/*HttpStatus status = HttpStatus.ACCEPTED;
 		try {
 			if(isInvalidoParaAtualizacao(id, entity)) {
@@ -80,11 +82,11 @@ public interface Resource<Model> {
 			status = HttpStatus.NOT_MODIFIED;
 			e.printStackTrace();
 		}*/
-		return new ResponseEntity<Model>(entity, HttpStatus.NOT_IMPLEMENTED);
+		return new ResponseEntity<>(entity, HttpStatus.NOT_IMPLEMENTED);
 	}
 
 	@PutMapping(value = "/{id}")
-	default ResponseEntity<Model> put(@PathVariable("id") Long id, @RequestBody Model entity) {
+	default ResponseEntity<M1> put(@PathVariable("id") Long id, @RequestBody M1 entity) {
 		HttpStatus status = HttpStatus.ACCEPTED;
 		executaAntesDeAtualizarTotalmente(id, entity);
 		try {
@@ -101,7 +103,7 @@ public interface Resource<Model> {
 	}
 
 	@DeleteMapping(value = "/{id}")
-	default ResponseEntity<Model> delete(@PathVariable("id") Long id) {
+	default ResponseEntity<M1> delete(@PathVariable("id") Long id) {
 		HttpStatus status = HttpStatus.NO_CONTENT;
 		executaAntesDeDeletar(id);
 		try {
@@ -117,12 +119,12 @@ public interface Resource<Model> {
 		return new ResponseEntity<>(null, status);
 	}
 
-	void fillInBlankFields(Model entity);
-	void merge(Model newEntity, Model oldEntity);
-	JpaRepository<Model, Long> getRepository();
-	void executaAntesDeCadastrar(Model entity);
-	void executaAntesDeAtualizarParcialMente(Long id, Model entity);
-	void executaAntesDeAtualizarTotalmente(Long id,Model entity);
+	void fillInBlankFields(M1 entity);
+	void merge(M1 newEntity, M1 oldEntity);
+	JpaRepository<M1, Long> getRepository();
+	void executaAntesDeCadastrar(M1 entity);
+	void executaAntesDeAtualizarParcialMente(Long id, M1 entity);
+	void executaAntesDeAtualizarTotalmente(Long id,M1 entity);
 	void executaAntesDeDeletar(Long id);
-	boolean isInvalidoParaAtualizacao(Long id, Model entity);
+	boolean isInvalidoParaAtualizacao(Long id, M1 entity);
 }
