@@ -33,7 +33,7 @@ public class CurriculoLattes {
 
 	@OneToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "id_dados_profissionais")
-	@JsonIgnoreProperties(value={"curriculoLattes"},allowGetters=false)
+	@JsonIgnoreProperties(allowGetters=false)
 	private DadosProfissionais dadosProfissionais;
 	
 	private LocalDateTime dataHoraCadastro;
