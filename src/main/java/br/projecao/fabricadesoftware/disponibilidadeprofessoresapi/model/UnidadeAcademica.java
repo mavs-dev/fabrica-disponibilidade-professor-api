@@ -28,7 +28,7 @@ public class UnidadeAcademica {
 	private String sigla;
 	
 	@ManyToMany(mappedBy="unidadesAcademicas")
-	@JsonIgnoreProperties({"disponibilidades"})
+	@JsonIgnoreProperties(value={"disponibilidades"},allowGetters=false)
 	private Set<Disponibilidade> disponibilidades;
 
 	private LocalDateTime dataHoraCadastro;

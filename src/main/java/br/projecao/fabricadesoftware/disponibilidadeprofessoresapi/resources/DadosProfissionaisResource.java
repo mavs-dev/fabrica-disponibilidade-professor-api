@@ -36,6 +36,8 @@ public class DadosProfissionaisResource implements Resource<DadosProfissionais> 
 
 	@Override
 	public void executaAntesDeCadastrar(DadosProfissionais entity) {
+		System.out.println(entity.getProfessor());
+		System.out.println(entity.getProfessor().getId());
 		entity.setDataHoraCadastro(LocalDateTime.now());
 	}
 

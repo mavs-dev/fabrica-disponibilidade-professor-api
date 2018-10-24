@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table
+@Table(name="interesse")
 @SequenceGenerator(name="dp_seq_interesse", sequenceName="dp_seq_interesse")
 public class Interesse {
 	

@@ -37,7 +37,7 @@ public class Usuario {
 	@Enumerated(EnumType.ORDINAL)
 	private Perfil perfil;
 	@OneToOne(mappedBy="professor")
-	@JsonIgnoreProperties({"professor"})
+	@JsonIgnoreProperties(value={"professor"},allowGetters=false)
 	private DadosProfissionais dadosProfissionais;
 	
 	@OneToMany(mappedBy="professor")

@@ -23,7 +23,7 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.DiaDa
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Turno;
 
 @Entity
-@Table
+@Table(name="disponibilidade")
 @SequenceGenerator(name="dp_seq_disponibilidade", sequenceName="dp_seq_disponibilidade")
 public class Disponibilidade {
 

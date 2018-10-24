@@ -27,10 +27,10 @@ public class Semestre {
 	@Column(nullable=false)
 	private Integer anoReferencia;
 	@OneToMany(mappedBy="semestre")
-	@JsonIgnoreProperties({"interesses"})
+	@JsonIgnoreProperties(value={"interesse"},allowGetters=false)
 	private Set<Interesse> interesses;
 	@OneToMany(mappedBy="semestre")
-	@JsonIgnoreProperties({"disponibilidades"})
+	@JsonIgnoreProperties(value={"disponibilidades"},allowGetters=false)
 	private Set<Disponibilidade> disponibilidades;
 	
 	private LocalDateTime dataHoraCadastro;

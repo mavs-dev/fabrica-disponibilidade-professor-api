@@ -27,7 +27,7 @@ public class Disciplina {
 	private String descricao;
 	
 	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
-	@JsonIgnoreProperties({"interesse"})
+	@JsonIgnoreProperties(value={"interesse"},allowGetters=false)
 	private List<Interesse> interesse;
 
 	private LocalDateTime dataHoraCadastro;

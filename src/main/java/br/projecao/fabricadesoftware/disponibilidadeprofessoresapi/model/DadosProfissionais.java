@@ -49,12 +49,12 @@ public class DadosProfissionais {
 	private Integer tempoExpDocenciaEdBasica;
 	
 	@OneToOne(mappedBy="dadosProfissionais", cascade=CascadeType.DETACH)
-	@JsonIgnoreProperties({"dadosProfissionais"})
+	@JsonIgnoreProperties(value={"dadosProfissionais"},allowGetters=false)
 	private CurriculoLattes curriculoLattes;
 	
 	@OneToOne
 	@JoinColumn(name = "id_professor")
-	@JsonIgnoreProperties({"dadosProfissionais"})
+	@JsonIgnoreProperties(value= {"dadosProfissionais"},allowGetters=false)
 	private Usuario professor;
 	
 	private LocalDateTime dataHoraCadastro;
