@@ -44,6 +44,10 @@ public class Usuario {
 	@JsonIgnoreProperties({"professor"})
 	private Set<Disponibilidade> disponibilidades;
 	
+	@OneToMany(mappedBy="professor")
+	@JsonIgnoreProperties({"professor"})
+	private Set<Interesse> disciplinasDeInteresse;
+	
 	private LocalDateTime dataHoraCadastro;
 	private LocalDateTime dataHoraAlteracao;
 	private LocalDateTime dataHoraExclusao;
@@ -89,6 +93,12 @@ public class Usuario {
 	}
 	public void setDisponibilidades(Set<Disponibilidade> disponibilidades) {
 		this.disponibilidades = disponibilidades;
+	}
+	public Set<Interesse> getDisciplinasDeInteresse() {
+		return disciplinasDeInteresse;
+	}
+	public void setDisciplinasDeInteresse(Set<Interesse> disciplinasDeInteresse) {
+		this.disciplinasDeInteresse = disciplinasDeInteresse;
 	}
 	public LocalDateTime getDataHoraCadastro() {
 		return dataHoraCadastro;
