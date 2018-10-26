@@ -25,6 +25,7 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Turno
 @Entity
 @Table(name="disponibilidade")
 @SequenceGenerator(name="dp_seq_disponibilidade", sequenceName="dp_seq_disponibilidade")
+@JsonIgnoreProperties(value={"professor"}, allowGetters=false, allowSetters=true)
 public class Disponibilidade {
 
 	@Id
@@ -36,7 +37,6 @@ public class Disponibilidade {
     @JoinTable(name="unidades_da_disponibilidade", joinColumns=
     {@JoinColumn(name="id_disponibilidade")}, inverseJoinColumns=
       {@JoinColumn(name="id_unidades_academicas")})
-	@JsonIgnoreProperties({"disponibilidades"})
 	private Set<UnidadeAcademica> unidadesAcademicas;
 	
 	@Column(nullable=false)
@@ -49,12 +49,10 @@ public class Disponibilidade {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_semestre")
-	@JsonIgnoreProperties({"disponibilidades"})
 	private Semestre semestre;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_professor")
-	@JsonIgnoreProperties({"disponibilidades"})
 	private Usuario professor;
 	
 	private LocalDateTime dataHoraCadastro;

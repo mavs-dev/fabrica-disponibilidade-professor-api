@@ -22,6 +22,7 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Perfi
 @Entity
 @Table(name = "usuario")
 @SequenceGenerator(name="dp_seq_usuario", sequenceName="dp_seq_usuario")
+@JsonIgnoreProperties(value={"professor"}, allowGetters=false)
 public class Usuario {
 
 	@Id
@@ -37,15 +38,12 @@ public class Usuario {
 	@Enumerated(EnumType.ORDINAL)
 	private Perfil perfil;
 	@OneToOne(mappedBy="professor")
-	@JsonIgnoreProperties(value={"professor"},allowGetters=false)
 	private DadosProfissionais dadosProfissionais;
 	
 	@OneToMany(mappedBy="professor")
-	@JsonIgnoreProperties({"professor"})
 	private Set<Disponibilidade> disponibilidades;
 	
 	@OneToMany(mappedBy="professor")
-	@JsonIgnoreProperties({"professor"})
 	private Set<Interesse> disciplinasDeInteresse;
 	
 	private LocalDateTime dataHoraCadastro;

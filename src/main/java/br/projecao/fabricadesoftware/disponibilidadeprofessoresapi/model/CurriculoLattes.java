@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="curriculo_lattes")
 @SequenceGenerator(name="dp_seq_lattes", sequenceName="dp_seq_lattes")
+@JsonIgnoreProperties(value= {"dadosProfissionais"}, allowGetters=false, allowSetters=true)
 public class CurriculoLattes {
 
 	@Id
@@ -33,7 +34,6 @@ public class CurriculoLattes {
 
 	@OneToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "id_dados_profissionais")
-	@JsonIgnoreProperties(allowGetters=false)
 	private DadosProfissionais dadosProfissionais;
 	
 	private LocalDateTime dataHoraCadastro;

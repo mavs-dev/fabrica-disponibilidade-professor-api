@@ -23,6 +23,7 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Nivel
 @Entity
 @Table(name="dados_profissionais")
 @SequenceGenerator(name="dp_seq_dados_prof", sequenceName="dp_seq_dados_prof")
+@JsonIgnoreProperties(value={"professor"}, allowGetters=false, allowSetters=true)
 public class DadosProfissionais {
 
 	@Id
@@ -49,12 +50,10 @@ public class DadosProfissionais {
 	private Integer tempoExpDocenciaEdBasica;
 	
 	@OneToOne(mappedBy="dadosProfissionais", cascade=CascadeType.DETACH)
-	@JsonIgnoreProperties(value={"dadosProfissionais"},allowGetters=false)
 	private CurriculoLattes curriculoLattes;
 	
 	@OneToOne
 	@JoinColumn(name = "id_professor")
-	@JsonIgnoreProperties(value= {"dadosProfissionais"},allowGetters=false)
 	private Usuario professor;
 	
 	private LocalDateTime dataHoraCadastro;

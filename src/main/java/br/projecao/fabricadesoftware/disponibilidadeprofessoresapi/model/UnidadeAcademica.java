@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="unidade_academica")
 @SequenceGenerator(name="dp_seq_uni_acad", sequenceName="dp_seq_uni_acad")
+@JsonIgnoreProperties(value={"disponibilidades"}, allowGetters=false, allowSetters=false)
 public class UnidadeAcademica {
 
 	@Id
@@ -28,7 +29,6 @@ public class UnidadeAcademica {
 	private String sigla;
 	
 	@ManyToMany(mappedBy="unidadesAcademicas")
-	@JsonIgnoreProperties(value={"disponibilidades"},allowGetters=false)
 	private Set<Disponibilidade> disponibilidades;
 
 	private LocalDateTime dataHoraCadastro;

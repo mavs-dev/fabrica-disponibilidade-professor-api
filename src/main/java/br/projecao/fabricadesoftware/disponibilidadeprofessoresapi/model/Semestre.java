@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="semestre")
 @SequenceGenerator(name="dp_seq_semestre", sequenceName="dp_seq_semestre")
+@JsonIgnoreProperties(value={"interesses","disponibilidades"}, allowGetters=false, allowSetters=false)
 public class Semestre {
 	
 	@Id
@@ -27,10 +28,8 @@ public class Semestre {
 	@Column(nullable=false)
 	private Integer anoReferencia;
 	@OneToMany(mappedBy="semestre")
-	@JsonIgnoreProperties(value={"interesse"},allowGetters=false)
 	private Set<Interesse> interesses;
 	@OneToMany(mappedBy="semestre")
-	@JsonIgnoreProperties(value={"disponibilidades"},allowGetters=false)
 	private Set<Disponibilidade> disponibilidades;
 	
 	private LocalDateTime dataHoraCadastro;

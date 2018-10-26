@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="interesse")
 @SequenceGenerator(name="dp_seq_interesse", sequenceName="dp_seq_interesse")
+@JsonIgnoreProperties(value= {"professor"}, allowGetters=false, allowSetters=true)
 public class Interesse {
 	
 	@Id
@@ -29,11 +30,10 @@ public class Interesse {
 	private int prioridade;
 	@ManyToOne
 	@JoinColumn(name = "id_professor")
-	@JsonIgnoreProperties(value = "interesse", allowSetters = true)
+	@JsonIgnoreProperties(value = "interesse", allowGetters = true)
 	private Usuario professor;
 	@ManyToOne
 	@JoinColumn(name = "id_disciplina")
-	@JsonIgnoreProperties(value = "interesse", allowSetters = true)
 	private Disciplina disciplina;
 	@ManyToMany
     @JoinTable(name="unidades_do_interesse", joinColumns=
@@ -42,7 +42,7 @@ public class Interesse {
 	private Set<UnidadeAcademica> unidadesAcademicas;
 	@ManyToOne
 	@JoinColumn(name = "id_semestre")
-	@JsonIgnoreProperties(value = "interesse", allowSetters = true)
+	@JsonIgnoreProperties(value = "interesse", allowGetters = true)
 	private Semestre semestre;
 	
 	private LocalDateTime dataHoraCadastro;
