@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class CurriculoLattes {
 
 	@Id
+	@Column(unique=true)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_lattes")
 	private Long id;
 	@Column(nullable=false)

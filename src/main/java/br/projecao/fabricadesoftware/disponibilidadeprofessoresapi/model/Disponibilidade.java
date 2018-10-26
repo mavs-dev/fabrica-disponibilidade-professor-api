@@ -29,6 +29,7 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Turno
 public class Disponibilidade {
 
 	@Id
+	@Column(unique=true)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_disponibilidade")
 	private Long id;
 	

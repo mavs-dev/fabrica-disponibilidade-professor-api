@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Semestre {
 	
 	@Id
+	@Column(unique=true)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_semestre")
 	private Long id;
 	@Column(length=1, scale=2, nullable=false)
