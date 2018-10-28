@@ -38,7 +38,7 @@ public class LoginResource {
 			resposta.put("isDadosProfissionaisPreenchidos", usuario.getDadosProfissionais() != null ? "true" : "false");
 			resposta.put("mensagem", "sucesso");
 		} else {
-			resposta.put("mensagemErro", "Email ou senha inválida");
+			resposta.put("mensagemErro", "E-mail ou senha inválida");
 		}
 		return new ResponseEntity<Map<String, String>>(resposta, status);
 	}
