@@ -2,6 +2,7 @@ package br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.in
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
@@ -14,12 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * M1 será subistituido pela model informada na classe que implementará essa interface.
  * */
-@RestController
+
 public interface Resource<M1> {
 
 	@GetMapping
@@ -68,6 +68,22 @@ public interface Resource<M1> {
 		}
 		return new ResponseEntity<>(entity, status);
 	}
+	
+	@PostMapping(path="/list")
+	default ResponseEntity<Set<M1>> postList(@RequestBody Set<M1> entity) {
+		HttpStatus status = HttpStatus.CREATED;
+		try {
+			entity.forEach(item->{
+				executaAntesDeCadastrar(item);
+				getRepository().save(item);
+			});
+		} catch (Exception e) {
+			status = HttpStatus.NOT_MODIFIED;
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(entity, status);
+	}
+
 
 	@PatchMapping(value = "/{id}")
 	default ResponseEntity<M1> patch(@PathVariable("id") Long id, @RequestBody M1 entity) {

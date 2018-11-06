@@ -45,9 +45,7 @@ public class DadosProfissionais {
 	private String principalAtuacaoProfissional;
 	@Column(nullable=false)
 	private Integer tempoExpProfissional;
-	@Column(nullable=false)
 	private Integer tempoExpMagisterioSuperior;
-	@Column(nullable=false)
 	private Integer tempoExpDocenciaEdBasica;
 	
 	@OneToOne(mappedBy="dadosProfissionais", cascade=CascadeType.DETACH)

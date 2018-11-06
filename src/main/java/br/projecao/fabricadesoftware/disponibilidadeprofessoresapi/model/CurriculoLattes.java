@@ -30,7 +30,7 @@ public class CurriculoLattes {
 	private LocalDate dataAtualizacao;
 	@Column(length=255, nullable=false)
 	private String url;
-	@Column(length=1000, nullable=false)
+	@Column(length=1000)
 	private String publicacoes;
 
 	@OneToOne(cascade=CascadeType.DETACH)
