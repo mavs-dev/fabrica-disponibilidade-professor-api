@@ -24,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Interesse {
 	
 	@Id
-	@Column(unique=true)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_interesse")
 	private Long id;
 	@Column(nullable=false)

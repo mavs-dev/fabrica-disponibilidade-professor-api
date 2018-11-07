@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class UnidadeAcademica {
 
 	@Id
-	@Column(unique=true)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_uni_acad")
 	private Long id;
 	@Column(length=50, nullable=false)

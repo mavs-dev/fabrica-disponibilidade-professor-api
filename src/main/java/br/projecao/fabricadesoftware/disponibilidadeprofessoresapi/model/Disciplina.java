@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Disciplina {
 
 	@Id
-	@Column(unique=true)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_disciplina")
 	private Long id;
 	@Column(length=75, nullable=false)

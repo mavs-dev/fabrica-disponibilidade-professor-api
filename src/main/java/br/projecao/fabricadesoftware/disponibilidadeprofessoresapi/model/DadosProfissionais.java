@@ -27,7 +27,6 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Nivel
 public class DadosProfissionais {
 
 	@Id
-	@Column(unique=true)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_dados_prof")
 	private Long id;
 	@Column(length=75,nullable=false)

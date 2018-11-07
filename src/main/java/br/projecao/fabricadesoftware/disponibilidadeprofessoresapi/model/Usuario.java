@@ -26,7 +26,6 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Perfi
 public class Usuario {
 
 	@Id
-	@Column(unique=true)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dp_seq_usuario")
 	private Long id;
 	@Column(length=75, nullable=false)

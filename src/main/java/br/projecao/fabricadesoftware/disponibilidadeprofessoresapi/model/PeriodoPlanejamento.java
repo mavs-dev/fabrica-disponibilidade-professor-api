@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="periodo_planejamento")
-@SequenceGenerator(name="dp_seq_periodo_plan")
+@SequenceGenerator(name="dp_seq_periodo_plan", sequenceName="dp_seq_periodo_plan")
 public class PeriodoPlanejamento {
 	
 	@Id

@@ -21,12 +21,10 @@ public class CurriculoLattesResource implements Resource<CurriculoLattes> {
 
 	@Override
 	public void fillInBlankFields(CurriculoLattes entity) {
-
 	}
 
 	@Override
 	public void merge(CurriculoLattes newEntity, CurriculoLattes oldEntity) {
-
 	}
 
 	@Override

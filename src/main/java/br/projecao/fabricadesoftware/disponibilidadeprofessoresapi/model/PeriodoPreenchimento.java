@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="periodo_preenchimento")
-@SequenceGenerator(name="dp_seq_periodo_preen")
+@SequenceGenerator(name="dp_seq_periodo_preen", sequenceName="dp_seq_periodo_preen")
 public class PeriodoPreenchimento {
 
 	@Id
