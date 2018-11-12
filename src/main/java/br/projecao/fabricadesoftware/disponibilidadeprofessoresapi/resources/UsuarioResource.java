@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.model.Usuario;
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.repository.UsuarioRepository;
 import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.resources.interfaces.Resource;
-import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.util.CriptografiaUtil;
 
 @RestController
 @RequestMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -19,6 +19,9 @@ public class UsuarioResource implements Resource<Usuario> {
 
 	@Autowired
 	private UsuarioRepository repository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public void fillInBlankFields(Usuario entity) {
@@ -37,7 +40,7 @@ public class UsuarioResource implements Resource<Usuario> {
 
 	@Override
 	public void executaAntesDeCadastrar(Usuario entity) {
-		entity.setSenha(CriptografiaUtil.getHash(entity.getSenha()));
+		entity.setSenha(passwordEncoder.encode(entity.getSenha()));
 		entity.setDataHoraCadastro(LocalDateTime.now());
 	}
 

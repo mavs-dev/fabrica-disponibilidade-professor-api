@@ -13,7 +13,7 @@ import br.projecao.fabricadesoftware.disponibilidadeprofessoresapi.dominio.Perfi
 public class UserSS implements UserDetails{
 	private static final long serialVersionUID = -4252743386861191029L;
 
-	private Integer id;
+	private Long id;
 	private String email;
 	private String senha;
 	private Collection<? extends GrantedAuthority> authorities;
@@ -21,14 +21,14 @@ public class UserSS implements UserDetails{
 	public UserSS() {
 	}
 
-	public UserSS(Integer id, String email, String senha, Set<Perfil> nivelAcesso) {
+	public UserSS(Long id, String email, String senha, Set<Perfil> nivelAcesso) {
 		this.id = id;
 		this.email = email;
 		this.senha = senha;
 		this.authorities = nivelAcesso.stream().map(x -> new SimpleGrantedAuthority(x.getRole())).collect(Collectors.toList());
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
